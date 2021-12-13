@@ -53,8 +53,23 @@ spotifyApi.clientCredentialsGrant().then(
 // Get albums which are on a favorites list
 
 router.get('/favorites', async (req, res) => {
-    const albums = await Album.find({ isFavorite: true }).sort('name');
+  if(req.query.name === "artistName-descending"){
+    const albums = await Album.find({ isFavorite: true }).sort({artistName: -1});
+    console.log(albums);
     return res.send(albums);
+  } else if(req.query.name === "artistName-ascending"){
+    const albums = await Album.find({ isFavorite: true }).sort({artistName: 1});
+    return res.send(albums);
+  } else if(req.query.name === "albumName-ascending"){
+    const albums = await Album.find({ isFavorite: true }).sort({albumName: 1});
+    return res.send(albums);
+  } else if(req.query.name === "albumName-descending"){
+    const albums = await Album.find({ isFavorite: true }).sort({albumName: -1});
+    return res.send(albums);
+  } else if(req.query.name === undefined){
+    const albums = await Album.find({ isFavorite: true }).sort({artistName: 1});
+    return res.send(albums);
+  }
 })
 
 // add album to a favorites list
@@ -92,8 +107,23 @@ router.post('/deleteFavorite', async(req, res) => {
 // Get albums which are on a bought list
 
 router.get('/bought', async (req, res) => {
-  const albums = await Album.find({ isBought: true }).sort('name');
-  return res.send(albums);
+  if(req.query.name === "artistName-descending"){
+    const albums = await Album.find({ isBought: true }).sort({artistName: -1});
+    console.log(albums);
+    return res.send(albums);
+  } else if(req.query.name === "artistName-ascending"){
+    const albums = await Album.find({ isBought: true }).sort({artistName: 1});
+    return res.send(albums);
+  } else if(req.query.name === "albumName-ascending"){
+    const albums = await Album.find({ isBought: true }).sort({albumName: 1});
+    return res.send(albums);
+  } else if(req.query.name === "albumName-descending"){
+    const albums = await Album.find({ isBought: true }).sort({albumName: -1});
+    return res.send(albums);
+  } else if(req.query.name === undefined){
+    const albums = await Album.find({ isBought: true }).sort({artistName: 1});
+    return res.send(albums);
+  }
 })
 
 // add album to a bought list
@@ -137,8 +167,23 @@ router.get('/planned', async (req, res) => {
 // Get albums which are on a listened list
 
 router.get('/listened', async (req, res) => {
-  const albums = await Album.find({ isListened: true }).sort('name');
-  return res.send(albums);
+  if(req.query.name === "artistName-descending"){
+    const albums = await Album.find({ isListened: true }).sort({artistName: -1});
+    console.log(albums);
+    return res.send(albums);
+  } else if(req.query.name === "artistName-ascending"){
+    const albums = await Album.find({ isListened: true }).sort({artistName: 1});
+    return res.send(albums);
+  } else if(req.query.name === "albumName-ascending"){
+    const albums = await Album.find({ isListened: true }).sort({albumName: 1});
+    return res.send(albums);
+  } else if(req.query.name === "albumName-descending"){
+    const albums = await Album.find({ isListened: true }).sort({albumName: -1});
+    return res.send(albums);
+  } else if(req.query.name === undefined){
+    const albums = await Album.find({ isListened: true }).sort({artistName: 1});
+    return res.send(albums);
+  }
 })
 
 // add album to a listened list

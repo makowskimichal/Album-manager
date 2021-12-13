@@ -1,28 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Select from 'react-select';
 
+const options = [
+    { value: 'artistName-ascending', label: 'Artist Name Ascending' },
+    { value: 'artistName-descending', label: 'Artist Name Descending' },
+    { value: 'albumName-ascending', label: 'Album Name Ascending' },
+    { value: 'albumName-descending', label: 'Album Name Descending' }
+  ];
 
 function Favorites() {
-    const [post, setPost] = useState([]);
+    const [album, setAlbum] = useState([]);
+    const [selectedOption, setSelectedOption] = useState("artistName-ascending");
 
     useEffect(() => {
-        axios.get("http://localhost:4000/api/albums/favorites").then((response) => {
-        setPost(response.data);
-        console.log(response.data)
+        axios.get("http://localhost:4000/api/albums/favorites", { params: { name: selectedOption.value } }).then((res) => {
+            setAlbum(res.data);
         });
-    }, []);
-
-    if (!post) return null;
+      }, [selectedOption]);
 
     return(
         <section>
+            <Select
+                defaultValue={selectedOption}
+                onChange={setSelectedOption}
+                options={options}
+            />
             <div className="container-fluid">
                 <h1>Favorite albums</h1>
                 <div className="card-body">
-                    {post.map(post =>
-                        <div key={post}>
-                            <img src={post.imageUrl} alt="cover"/>
-                            {post.artistName} - {post.albumName}
+                    {album.map(album =>
+                        <div key={album}>
+                            <img src={album.imageUrl} alt="cover"/>
+                            {album.artistName} - {album.albumName}
                         </div>
                         )}
                 </div>
