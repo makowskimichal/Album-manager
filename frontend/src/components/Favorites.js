@@ -19,6 +19,14 @@ function Favorites() {
         });
       }, [selectedOption]);
 
+      const deleteFavorite = (data) => {
+        axios
+          .post("http://localhost:4000/api/albums/deleteFavorite", data)
+          .then(res => {
+            console.log(res);
+          })
+      }
+
     return(
         <section>
             <Select
@@ -33,6 +41,7 @@ function Favorites() {
                         <div key={album}>
                             <img src={album.imageUrl} alt="cover"/>
                             {album.artistName} - {album.albumName}
+                            <button onClick={() => deleteFavorite(album)}>Delete from favorites</button>
                         </div>
                         )}
                 </div>
