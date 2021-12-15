@@ -30,7 +30,6 @@ spotifyApi.clientCredentialsGrant().then(
     let array = [];
     spotifyApi.searchAlbums(name, { limit: 5 }).then(
       function(data){
-        console.log(data.body)
         _.each(data.body.albums.items, (item, index) => {
           array.push(
             new Album({
@@ -138,7 +137,8 @@ router.post('/bought', async (req, res) => {
       albumName: req.body.albumName,
       tracksNumber: req.body.tracksNumber,
       releaseDate: req.body.releaseDate,
-      isBought: true
+      isBought: true,
+      boughtMedium: req.body.boughtMedium
     });
     console.log("nowy dodany")
     return res.send(album.save());
@@ -147,7 +147,7 @@ router.post('/bought', async (req, res) => {
     return res.send("Album is already on the favorites list");
   } else if (oldAlbum.isBought === false) {
     console.log("zmieniony")
-    return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isBought: true }));
+    return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isBought: true, boughtMedium: req.body.boughtMedium }));
   }
 });
 

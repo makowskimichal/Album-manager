@@ -3,7 +3,6 @@ import axios from 'axios';
 import Select from 'react-select';
 import Modal from 'react-modal';
 
-
 const options = [
     { value: 'artistName-ascending', label: 'Artist Name Ascending' },
     { value: 'artistName-descending', label: 'Artist Name Descending' },
@@ -11,18 +10,17 @@ const options = [
     { value: 'albumName-descending', label: 'Album Name Descending' }
   ];
 
-  const customStyles = {
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-    },
-  };
-
-Modal.setAppElement('#root');
+const customStyles = {
+  content: {
+    top: '35%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    width: '60%',
+    transform: 'translate(-40%, -10%)',
+  },
+};
 
 function Bought() {
     const [album, setAlbum] = useState([]);
@@ -48,21 +46,13 @@ function Bought() {
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={() => setIsOpen(false)}
-          contentLabel="Example Modal"
+          style={customStyles}
         >
-          <h1>{album.albumName}</h1>
+          <h1>Do u want to delete album {album.artistName} - {album.albumName} from bought?</h1>
           <button onClick={() => setIsOpen(false)}>Close</button>
           <button onClick={() => {deleteBought(album); setIsOpen(false)}}>Delete</button>
         </Modal>
       );
-
-      function openModal() {
-        setIsOpen(true);
-      }
-
-      function closeModal() {
-        setIsOpen(false);
-      }
 
     return(
         <section>
@@ -78,14 +68,13 @@ function Bought() {
                         <div key={album}>
                             <img src={album.imageUrl} alt="cover"/>
                             {album.artistName} - {album.albumName}
-                            <button onClick={() => deleteBought(album)}>Delete from bought</button>
                             <button
                               onClick={() => {
                                 setIsOpen(true);
                                 setActiveAlbum(album);
                               }}
                             >
-                              Delete from bought (modal)
+                              Delete from bought
                             </button>
                         </div>
                         )}

@@ -15,7 +15,7 @@ function Nav() {
             <Link to='/' style={{ margin: 10 }}>Search</Link>
             <Link to='/favorites' style={{ margin: 10 }}>Favorites</Link>
             <Link to='/bought' style={{ margin: 10 }}>Bought</Link>
-            <Link to='/listened' style={{ margin: 10 }}>Listened</Link>
+            {/* <Link to='/listened' style={{ margin: 10 }}>Listened</Link> */}
         </nav>
       </div>
     );

@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+.modal {
+  top: '35%';
+  left: '50%';
+  right: 'auto';
+  bottom: 'auto';
+  margin-right: '-50%';
+  width: '60%';
+  transform: 'translate(-40%, -10%)';
+}
+

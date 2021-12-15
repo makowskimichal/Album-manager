@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-const Joi = require('joi');
-const { boolean } = require('joi');
-Joi.objectId = require('joi-objectid')(Joi);
 
 const albumSchema = new mongoose.Schema({
     artistName: {
@@ -53,6 +50,13 @@ const albumSchema = new mongoose.Schema({
     isBought: {
         type: Boolean,
         default: false
+    },
+    boughtMedium: {
+        type: [String],
+        required: false,
+        enum: ['cd', 'vinyl'],
+        trim: true,
+        lowercase: true
     }
 });
 
