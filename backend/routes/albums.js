@@ -54,7 +54,6 @@ spotifyApi.clientCredentialsGrant().then(
 router.get('/favorites', async (req, res) => {
   if(req.query.name === "artistName-descending"){
     const albums = await Album.find({ isFavorite: true }).sort({artistName: -1});
-    console.log(albums);
     return res.send(albums);
   } else if(req.query.name === "artistName-ascending"){
     const albums = await Album.find({ isFavorite: true }).sort({artistName: 1});
@@ -66,7 +65,7 @@ router.get('/favorites', async (req, res) => {
     const albums = await Album.find({ isFavorite: true }).sort({albumName: -1});
     return res.send(albums);
   } else if(req.query.name === undefined){
-    const albums = await Album.find({ isFavorite: true }).sort({artistName: 1});
+    const albums = await Album.find({ isFavorite: true }).sort({lastUpdated: -1});
     return res.send(albums);
   }
 })
@@ -84,7 +83,7 @@ router.post('/favorites', async (req, res) => {
       tracksNumber: req.body.tracksNumber,
       releaseDate: req.body.releaseDate,
       isFavorite: true,
-      isListened: true
+      lastUpdated: Date.now()
     });
     console.log("nowy dodany")
     return res.send(album.save());
@@ -93,14 +92,19 @@ router.post('/favorites', async (req, res) => {
     return res.send("Album is already on the favorites list");
   } else if (oldAlbum.isFavorite === false) {
     console.log("zmieniony")
-    return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isFavorite: true, isListened: true }));
+    return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isFavorite: true, lastUpdated: Date.now() }));
   }
 });
 
 // delete from favorites list
 
 router.post('/deleteFavorite', async(req, res) => {
-  return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isFavorite: false }));
+  console.log(req.body.isBought);
+  if(req.body.isBought === true) {
+    return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isFavorite: false }));
+  } else {
+    return res.send(await Album.findOneAndDelete({ imageUrl: req.body.imageUrl }));
+  }
 })
 
 // Get albums which are on a bought list
@@ -108,7 +112,6 @@ router.post('/deleteFavorite', async(req, res) => {
 router.get('/bought', async (req, res) => {
   if(req.query.name === "artistName-descending"){
     const albums = await Album.find({ isBought: true }).sort({artistName: -1});
-    console.log(albums);
     return res.send(albums);
   } else if(req.query.name === "artistName-ascending"){
     const albums = await Album.find({ isBought: true }).sort({artistName: 1});
@@ -120,7 +123,7 @@ router.get('/bought', async (req, res) => {
     const albums = await Album.find({ isBought: true }).sort({albumName: -1});
     return res.send(albums);
   } else if(req.query.name === undefined){
-    const albums = await Album.find({ isBought: true }).sort({artistName: 1});
+    const albums = await Album.find({ isBought: true }).sort({lastUpdated: -1});
     return res.send(albums);
   }
 })
@@ -138,23 +141,25 @@ router.post('/bought', async (req, res) => {
       tracksNumber: req.body.tracksNumber,
       releaseDate: req.body.releaseDate,
       isBought: true,
-      boughtMedium: req.body.boughtMedium
+      boughtMedium: req.body.boughtMedium,
+      lastUpdated: Date.now()
     });
-    console.log("nowy dodany")
     return res.send(album.save());
   } else if(oldAlbum.isBought === true) {
-    console.log("juz jest taki")
     return res.send("Album is already on the favorites list");
   } else if (oldAlbum.isBought === false) {
-    console.log("zmieniony")
-    return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isBought: true, boughtMedium: req.body.boughtMedium }));
+    return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isBought: true, boughtMedium: req.body.boughtMedium, lastUpdated: Date.now() }));
   }
 });
 
 // delete from bought list
 
 router.post('/deleteBought', async(req, res) => {
-  return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isBought: false }));
+  if(req.body.isFavorite === true) {
+    return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isBought: false }));
+  } else {
+    return res.send(await Album.findOneAndDelete({ imageUrl: req.body.imageUrl }));
+  }
 })
 
 // Get albums which are on a planned list
@@ -164,66 +169,18 @@ router.get('/planned', async (req, res) => {
   return res.send(albums);
 })
 
-// Get albums which are on a listened list
-
-router.get('/listened', async (req, res) => {
-  if(req.query.name === "artistName-descending"){
-    const albums = await Album.find({ isListened: true }).sort({artistName: -1});
-    console.log(albums);
-    return res.send(albums);
-  } else if(req.query.name === "artistName-ascending"){
-    const albums = await Album.find({ isListened: true }).sort({artistName: 1});
-    return res.send(albums);
-  } else if(req.query.name === "albumName-ascending"){
-    const albums = await Album.find({ isListened: true }).sort({albumName: 1});
-    return res.send(albums);
-  } else if(req.query.name === "albumName-descending"){
-    const albums = await Album.find({ isListened: true }).sort({albumName: -1});
-    return res.send(albums);
-  } else if(req.query.name === undefined){
-    const albums = await Album.find({ isListened: true }).sort({artistName: 1});
-    return res.send(albums);
-  }
-})
-
-// add album to a listened list
-
-router.post('/listened', async (req, res) => {
-  const oldAlbum = await Album.findOne({ imageUrl: req.body.imageUrl } );
-  if(!oldAlbum) {
-    const album = new Album({
-      artistName: req.body.artistName,
-      artistId: req.body.artistId,
-      imageUrl: req.body.imageUrl,
-      albumName: req.body.albumName,
-      tracksNumber: req.body.tracksNumber,
-      releaseDate: req.body.releaseDate,
-      isListened: true
-    });
-    console.log("nowy dodany")
-    return res.send(album.save());
-  } else if(oldAlbum.isListened === true) {
-    console.log("juz jest taki")
-    return res.send("Album is already on the favorites list");
-  } else if (oldAlbum.isListened === false) {
-    console.log("zmieniony")
-    return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isListened: true }));
-  }
-});
-
-// delete from listened list
-
-router.post('/deleteListened', async(req, res) => {
-  return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isListened: false, isFavorite: false }));
-})
-
 // get recommendations based on last addded artist
 
 router.get('/recommend', async(req, res) => {
-  let array = [];
-  spotifyApi.getRecommendations({ limit: 5, seed_artists: ["3nnQpaTvKb5jCQabZefACI", "3nnQpaTvKb5jCQabZefACI"] }) // hardcoded, change to dynamic once you finish frontend
+  Album.find().sort({ lastUpdated: -1 }).limit(5).exec((err, album) => {
+    if(err){
+      res.send(err);
+    } else {
+      arraySeeds = album.map(each => each.artistId);
+    }
+    const array = [];
+    spotifyApi.getRecommendations({ limit: 10, seed_artists: arraySeeds})
     .then(function(data){
-      let recommendations = data.body.tracks[0].album;
       _.each(data.body.tracks, (item, index) => {
         array.push(
           new Album({
@@ -236,11 +193,12 @@ router.get('/recommend', async(req, res) => {
             })
         )
       });
-      console.log(array);
-      res.send(array);
+      return res.send(array);
     }, function(err) {
-      console.log("Something went wrong.")
+      console.log("err")
     })
+  });
+
 })
 
 // delete album from all the lists

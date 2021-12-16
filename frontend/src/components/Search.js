@@ -55,7 +55,6 @@ function Search() {
       style={customStyles}
     >
       <h1>Do u want to add album {result.artistName} - {result.albumName} to bought?</h1>
-      <button onClick={() => setIsOpen(false)}>Cancel</button>
       <Select
         value={selectedOptions}
         onChange={setSelectedOptions}
@@ -66,16 +65,9 @@ function Search() {
         classNamePrefix="select"
       />
       <button onClick={() => {bought(result, selectedOptions); setIsOpen(false)}}>Add</button>
+      <button onClick={() => setIsOpen(false)}>Cancel</button>
     </Modal>
   );
-
-  // const listened = (data) => {
-  //   axios
-  //     .post("http://localhost:4000/api/albums/listened", data)
-  //     .then(res => {
-  //       console.log(res);
-  //     })
-  // }
 
   useEffect(() => {
     let cancel = false
@@ -102,15 +94,13 @@ function Search() {
               <img className="pr-10" key={result.imageUrl} src={result.imageUrl} alt=""/>
               {result.artistName} - {result.albumName}
               <button onClick={() => favorites(result)}>Add to favorites</button>
-              {/* <button onClick={() => listened(result)}>Add to listened</button> */}
-              <button onClick={() => bought(result)}>Add to bought</button>
               <button
                 onClick={() => {
                   setIsOpen(true);
                   setActiveAlbum(result);
                 }}
               >
-                Add to bought (modal)
+                Add to bought
               </button>
             </div>
           ))}

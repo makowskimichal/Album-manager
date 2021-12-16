@@ -4,11 +4,11 @@ import Select from 'react-select';
 import Modal from 'react-modal';
 
 const options = [
-    { value: 'artistName-ascending', label: 'Artist Name Ascending' },
-    { value: 'artistName-descending', label: 'Artist Name Descending' },
-    { value: 'albumName-ascending', label: 'Album Name Ascending' },
-    { value: 'albumName-descending', label: 'Album Name Descending' }
-  ];
+  { value: 'artistName-ascending', label: 'Artist Name Ascending' },
+  { value: 'artistName-descending', label: 'Artist Name Descending' },
+  { value: 'albumName-ascending', label: 'Album Name Ascending' },
+  { value: 'albumName-descending', label: 'Album Name Descending' }
+];
 
 const customStyles = {
   content: {
@@ -23,66 +23,67 @@ const customStyles = {
 };
 
 function Bought() {
-    const [album, setAlbum] = useState([]);
-    const [selectedOption, setSelectedOption] = useState("artistName-ascending");
-    const [modalIsOpen, setIsOpen] = useState(false);
-    const [activeAlbum, setActiveAlbum] = useState(null);
+  const [album, setAlbum] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("artistName-ascending");
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [activeAlbum, setActiveAlbum] = useState(null);
+  const [albumDeleted, setAlbumDeleted] = useState(null);
 
-    useEffect(() => {
-        axios.get("http://localhost:4000/api/albums/bought", { params: { name: selectedOption.value } }).then((res) => {
-            setAlbum(res.data);
-        });
-      }, [selectedOption]);
+  useEffect(() => {
+    axios.get("http://localhost:4000/api/albums/bought", { params: { name: selectedOption.value } }).then((res) => {
+        setAlbum(res.data);
+    });
+  }, [selectedOption, albumDeleted]);
 
-      const deleteBought = (data) => {
-        axios
-          .post("http://localhost:4000/api/albums/deleteBought", data)
-          .then(res => {
-            console.log(res);
-          })
-      }
+  const deleteBought = (data) => {
+    axios
+      .post("http://localhost:4000/api/albums/deleteBought", data)
+      .then(res => {
+        setAlbumDeleted(res.data);
+      })
+  }
 
-      const AlbumModal = ({ album }) => (
-        <Modal
-          isOpen={modalIsOpen}
-          onRequestClose={() => setIsOpen(false)}
-          style={customStyles}
-        >
-          <h1>Do u want to delete album {album.artistName} - {album.albumName} from bought?</h1>
-          <button onClick={() => setIsOpen(false)}>Close</button>
-          <button onClick={() => {deleteBought(album); setIsOpen(false)}}>Delete</button>
-        </Modal>
-      );
+  const AlbumModal = ({ album }) => (
+    <Modal
+      isOpen={modalIsOpen}
+      onRequestClose={() => setIsOpen(false)}
+      style={customStyles}
+    >
+      <h1>Do u want to delete album {album.artistName} - {album.albumName} from bought?</h1>
+      <button onClick={() => {deleteBought(album); setIsOpen(false)}}>Delete</button>
+      <button onClick={() => setIsOpen(false)}>Close</button>
+    </Modal>
+  );
 
-    return(
-        <section>
-            <Select
-                defaultValue={selectedOption}
-                onChange={setSelectedOption}
-                options={options}
-            />
-            <div className="container-fluid">
-                <h1>Bought albums</h1>
-                <div className="card-body">
-                    {album.map(album =>
-                        <div key={album}>
-                            <img src={album.imageUrl} alt="cover"/>
-                            {album.artistName} - {album.albumName}
-                            <button
-                              onClick={() => {
-                                setIsOpen(true);
-                                setActiveAlbum(album);
-                              }}
-                            >
-                              Delete from bought
-                            </button>
-                        </div>
-                        )}
-                        {activeAlbum && <AlbumModal album={activeAlbum} />}
+  return(
+    <section>
+      <Select
+          defaultValue={selectedOption}
+          onChange={setSelectedOption}
+          options={options}
+      />
+      <div className="container-fluid">
+          <h1>Bought albums</h1>
+          <div className="card-body">
+            {album.map(album =>
+                <div key={album}>
+                    <img src={album.imageUrl} alt="cover"/>
+                    {album.artistName} - {album.albumName} ({album.boughtMedium})
+                    <button
+                      onClick={() => {
+                        setIsOpen(true);
+                        setActiveAlbum(album);
+                      }}
+                    >
+                      Delete from bought
+                    </button>
                 </div>
+                )}
+                {activeAlbum && <AlbumModal album={activeAlbum} />}
             </div>
-        </section>
-    );
+        </div>
+    </section>
+  );
 }
 
 export default Bought;

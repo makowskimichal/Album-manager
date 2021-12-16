@@ -4,13 +4,13 @@ const albumSchema = new mongoose.Schema({
     artistName: {
         type: String,
         minlength: 1,
-        maxlength: 50,
+        maxlength: 250,
         required: true
     },
     artistId: {
         type: String,
         minlength: 1,
-        maxlength: 50,
+        maxlength: 250,
         required: true 
     },
     imageUrl: {
@@ -22,7 +22,7 @@ const albumSchema = new mongoose.Schema({
     albumName: {
         type: String,
         minlength: 1,
-        maxlength: 50,
+        maxlength: 250,
         required: true
     },
     tracksNumber: {
@@ -33,17 +33,13 @@ const albumSchema = new mongoose.Schema({
     releaseDate: {
         type: Date,
         required: true,
-        default: Date.now
+        default: Date.now()
     },
     isFavorite: {
         type: Boolean,
         default: false
     },
     isPlanned: {
-        type: Boolean,
-        default: false
-    },
-    isListened: {
         type: Boolean,
         default: false
     },
@@ -57,6 +53,10 @@ const albumSchema = new mongoose.Schema({
         enum: ['cd', 'vinyl'],
         trim: true,
         lowercase: true
+    },
+    lastUpdated: {
+        type: Date,
+        default: Date.now()
     }
 });
 
