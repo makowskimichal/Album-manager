@@ -49,7 +49,7 @@ function Favorites() {
       onRequestClose={() => setIsOpen(false)}
       style={customStyles}
     >
-      <h1>Do u want to delete album {album.artistName} - {album.albumName} from bought?</h1>
+      <h1>Do u want to delete album {album.artistName} - {album.albumName} from favorites?</h1>
       <button onClick={() => {deleteFavorite(album); setIsOpen(false)}}>Delete</button>
       <button onClick={() => setIsOpen(false)}>Close</button>
     </Modal>
@@ -75,7 +75,7 @@ function Favorites() {
                       setActiveAlbum(album);
                     }}
                   >
-                    Delete from bought
+                    Delete from favorites
                   </button>
                 </div>
                 )}

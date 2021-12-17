@@ -3,6 +3,7 @@ import { Container, Form } from "react-bootstrap";
 import axios from 'axios';
 import Select from 'react-select';
 import Modal from 'react-modal';
+import { useAlert } from 'react-alert'
 
 const boughtOptions = [
   { value: 'cd', label: 'CD' },
@@ -27,13 +28,14 @@ function Search() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [activeAlbum, setActiveAlbum] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState([boughtOptions[0], boughtOptions[1]])
+  const alert = useAlert()
+  const [alertMessage, setAlertMessage] = useState();
 
-  const favorites = (data, selectedOptions) => {
-    console.log(selectedOptions)
+  const favorites = (data) => {
     axios
       .post("http://localhost:4000/api/albums/favorites", data)
       .then(res => {
-        console.log(res);
+        setAlertMessage(res.data.message);
       })
   }
 
@@ -43,7 +45,7 @@ function Search() {
     axios
       .post("http://localhost:4000/api/albums/bought", data)
       .then(res => {
-        console.log(res);
+        setAlertMessage(res.data.message);
       })
   }
 
@@ -70,17 +72,19 @@ function Search() {
   );
 
   useEffect(() => {
-    let cancel = false
+    if(!alertMessage) return
+    alert.show(alertMessage)
+  }, [alertMessage])
+
+  useEffect(() => {
     if(!search) return setSearchResult([]);
-    if (cancel) return
     axios.get("http://localhost:4000/api/albums/search", { params: { name: search } }).then((res) => {
     setSearchResult(res.data)
-    });
-    return () => (cancel = true)
+    })
   }, [search]);
 
   return(
-    <Container className="d-flex flex-column py-2" style={{ height: "100vh" }}>
+    <Container className="d-flex flex-column py-2">
       <Form.Control
         type="search"
         placeholder="Search Songs/Artists"

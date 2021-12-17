@@ -86,13 +86,12 @@ router.post('/favorites', async (req, res) => {
       lastUpdated: Date.now()
     });
     console.log("nowy dodany")
-    return res.send(album.save());
+    return res.send({message: "New album has been added", album: album.save()});
   } else if(oldAlbum.isFavorite === true) {
-    console.log("juz jest taki")
-    return res.send("Album is already on the favorites list");
+    return res.send({message: "Album is already on the favorites list"});
   } else if (oldAlbum.isFavorite === false) {
     console.log("zmieniony")
-    return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isFavorite: true, lastUpdated: Date.now() }));
+    return res.send({message: "Album has been edited", album: await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isFavorite: true, lastUpdated: Date.now() })});
   }
 });
 
@@ -144,11 +143,13 @@ router.post('/bought', async (req, res) => {
       boughtMedium: req.body.boughtMedium,
       lastUpdated: Date.now()
     });
-    return res.send(album.save());
+    return res.send({message: "New album has been added", album: album.save()});
   } else if(oldAlbum.isBought === true) {
-    return res.send("Album is already on the favorites list");
+    return res.send({message: "Album is already on the bought list"});
   } else if (oldAlbum.isBought === false) {
-    return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isBought: true, boughtMedium: req.body.boughtMedium, lastUpdated: Date.now() }));
+    return res.send( 
+      {message: "Album has been edited", album: await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isBought: true, boughtMedium: req.body.boughtMedium, lastUpdated: Date.now()})}
+      )
   }
 });
 
