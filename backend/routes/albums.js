@@ -12,6 +12,19 @@ var spotifyApi = new SpotifyWebApi({
 });
 
 spotifyApi.clientCredentialsGrant().then(
+  function(data) {
+    console.log('The access token expires in ' + data.body['expires_in']);
+    console.log('The access token is ' + data.body['access_token']);
+
+    spotifyApi.setAccessToken(data.body['access_token']);
+  },
+  function(err) {
+    console.log('Something went wrong when retrieving an access token', err);
+  }
+)
+
+setInterval(() => {
+  spotifyApi.clientCredentialsGrant().then(
     function(data) {
       console.log('The access token expires in ' + data.body['expires_in']);
       console.log('The access token is ' + data.body['access_token']);
@@ -19,9 +32,10 @@ spotifyApi.clientCredentialsGrant().then(
       spotifyApi.setAccessToken(data.body['access_token']);
     },
     function(err) {
-      console.log('Something went wrong when retrieving an access token');
+      console.log('Something went wrong when retrieving an access token', err);
     }
   )
+}, 1000 * 60 * 60)
 
   // Search albums by anything related to it
 
@@ -85,13 +99,11 @@ router.post('/favorites', async (req, res) => {
       isFavorite: true,
       lastUpdated: Date.now()
     });
-    console.log("nowy dodany")
     return res.send({message: "New album has been added", album: album.save()});
   } else if(oldAlbum.isFavorite === true) {
     return res.send({message: "Album is already on the favorites list"});
   } else if (oldAlbum.isFavorite === false) {
-    console.log("zmieniony")
-    return res.send({message: "Album has been edited", album: await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isFavorite: true, lastUpdated: Date.now() })});
+    return res.send({message: "Album has been edited", album: await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isFavorite: true, lastUpdated: Date.now()})});
   }
 });
 
@@ -144,8 +156,12 @@ router.post('/bought', async (req, res) => {
       lastUpdated: Date.now()
     });
     return res.send({message: "New album has been added", album: album.save()});
-  } else if(oldAlbum.isBought === true) {
+  } else if(oldAlbum.isBought === true && JSON.stringify(req.body.boughtMedium) === JSON.stringify(oldAlbum.boughtMedium)) {
     return res.send({message: "Album is already on the bought list"});
+  } else if(oldAlbum.isBought === true && JSON.stringify(req.body.boughtMedium) !== JSON.stringify(oldAlbum.boughtMedium)){
+    return res.send( 
+      {message: "Album has been edited", album: await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isBought: true, boughtMedium: req.body.boughtMedium, lastUpdated: Date.now()})}
+      )
   } else if (oldAlbum.isBought === false) {
     return res.send( 
       {message: "Album has been edited", album: await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isBought: true, boughtMedium: req.body.boughtMedium, lastUpdated: Date.now()})}
@@ -180,7 +196,7 @@ router.get('/recommend', async(req, res) => {
       arraySeeds = album.map(each => each.artistId);
     }
     const array = [];
-    spotifyApi.getRecommendations({ limit: 10, seed_artists: arraySeeds})
+    spotifyApi.getRecommendations({ limit: 5, seed_artists: arraySeeds})
     .then(function(data){
       _.each(data.body.tracks, (item, index) => {
         array.push(

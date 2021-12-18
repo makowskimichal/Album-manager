@@ -18,6 +18,7 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     width: '60%',
+    height: '30%',
     transform: 'translate(-40%, -10%)',
   },
 };
@@ -66,15 +67,17 @@ function Search() {
         className="basic-multi-select"
         classNamePrefix="select"
       />
-      <button onClick={() => {bought(result, selectedOptions); setIsOpen(false)}}>Add</button>
-      <button onClick={() => setIsOpen(false)}>Cancel</button>
+      <div>
+        <button onClick={() => {bought(result, selectedOptions); setIsOpen(false)}}>Add</button>
+        <button onClick={() => setIsOpen(false)}>Cancel</button>
+      </div>
     </Modal>
   );
 
   useEffect(() => {
     if(!alertMessage) return
     alert.show(alertMessage)
-  }, [alertMessage])
+  }, [alert, alertMessage])
 
   useEffect(() => {
     if(!search) return setSearchResult([]);
@@ -84,32 +87,41 @@ function Search() {
   }, [search]);
 
   return(
-    <Container className="d-flex flex-column py-2">
+    <Container className="container-fluid py-2">
       <Form.Control
         type="search"
         placeholder="Search Songs/Artists"
         value={search}
         onChange={e => setSearch(e.target.value)}
       />
-      <div className="flex-grow-1 my-100" style={{ overflowY: "auto" }}>
-        <div className="pt-3">  
-          {searchResult.map(result => (
-            <div className="mt-3"> 
+      <div className="container-fluid m-3">  
+        {searchResult.map(result => (
+          <div className="row" style={{padding: "1.85%"}} key={result.imageUrl}> 
+            <div className="col-2">
               <img className="pr-10" key={result.imageUrl} src={result.imageUrl} alt=""/>
-              {result.artistName} - {result.albumName}
-              <button onClick={() => favorites(result)}>Add to favorites</button>
-              <button
-                onClick={() => {
-                  setIsOpen(true);
-                  setActiveAlbum(result);
-                }}
-              >
-                Add to bought
-              </button>
             </div>
-          ))}
-          {activeAlbum && <AlbumModal result={activeAlbum} />}
-        </div>
+            <div className='col'>
+            {result.albumName}
+            </div>
+            <div className='col'>
+            {result.artistName} 
+            </div>
+            <div className='col-2'>
+            <button onClick={() => favorites(result)}>Add to favorites</button>
+            </div>
+            <div className='col-2'>
+            <button
+              onClick={() => {
+                setIsOpen(true);
+                setActiveAlbum(result);
+              }}
+            >
+              Add to bought
+            </button>
+            </div>
+          </div>
+        ))}
+        {activeAlbum && <AlbumModal result={activeAlbum} />}
       </div>
     </Container>
   );

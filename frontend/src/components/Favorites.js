@@ -57,30 +57,39 @@ function Favorites() {
 
   return(
     <section>
+      <h1>Favorite albums</h1>
+      <div className='container-fluid align-middle mt-3 mb-1' style={{width: "80%"}}>
       <Select
           defaultValue={selectedOption}
           onChange={setSelectedOption}
           options={options}
       />
+      </div>
       <div className="container-fluid">
-          <h1>Favorite albums</h1>
-          <div className="card-body">
-            {album.map(album =>
-                <div key={album}>
-                  <img src={album.imageUrl} alt="cover"/>
-                  {album.artistName} - {album.albumName}
-                  <button
-                    onClick={() => {
-                      setIsOpen(true);
-                      setActiveAlbum(album);
-                    }}
-                  >
-                    Delete from favorites
-                  </button>
-                </div>
-                )}
-                {activeAlbum && <AlbumModal album={activeAlbum} />}
+      {album.map(album =>(
+        <div className='row' style={{padding: "1.85%"}} key={album}>
+          <div className='col-2'>
+            <img src={album.imageUrl} alt="cover"/>
           </div>
+          <div className='col'>
+          {album.artistName}
+          </div>
+          <div className='col'>
+          {album.albumName}
+          </div>
+          <div className='col-2'>
+          <button
+            onClick={() => {
+              setIsOpen(true);
+              setActiveAlbum(album);
+            }}
+          >
+            Delete from favorites
+          </button>
+          </div>
+        </div>
+        ))}
+        {activeAlbum && <AlbumModal album={activeAlbum} />}
         </div>
     </section>
   );

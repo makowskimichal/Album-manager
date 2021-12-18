@@ -3,13 +3,6 @@ import axios from 'axios';
 
 function Recommendations() {
     const [album, setAlbum] = useState([]);
-    // const [seeds, setSeeds] = useState([]);
-
-    // useEffect(() => {
-    //     axios.get("http://localhost:4000/api/albums/seeds").then((res) => {
-    //         setSeeds(res.data);
-    //     });
-    //   }, []);
 
     useEffect(() => {
         axios.get("http://localhost:4000/api/albums/recommend").then((res) => {
@@ -20,14 +13,21 @@ function Recommendations() {
 return (
     <div className="container-fluid">
         <h1>Recommended albums</h1>
-        <div className="card-body">
-        {album.map(album =>
-            <div key={album}>
-                <img src={album.imageUrl} alt="cover"/>
-                {album.artistName} - {album.albumName}
+        <div className="container-fluid">
+        {album.map(album => (
+          <div className="row" style={{padding: "1.85%"}} key={album}>
+            <div className="col-2">
+              <img src={album.imageUrl} alt="cover"/>
             </div>
-            )}
-        </div>
+            <div className="col">
+              {album.artistName}
+            </div>
+            <div className="col">
+            {album.albumName}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
 );
 }
