@@ -26,7 +26,7 @@ function App() {
     <div className='App'>
       {user && (
         <div>
-          User: {user.username}
+          Welcome back {user.username}!
           <button
               className="btn btn-primary"
               onClick={() => {

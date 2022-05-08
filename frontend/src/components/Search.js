@@ -4,6 +4,7 @@ import axios from 'axios';
 import Select from 'react-select';
 import Modal from 'react-modal';
 import { useAlert } from 'react-alert'
+import { getUserFromLocalStorage } from '../components/auth/AuthService';
 
 const boughtOptions = [
   { value: 'cd', label: 'CD' },
@@ -31,10 +32,11 @@ function Search() {
   const [selectedOptions, setSelectedOptions] = useState([boughtOptions[0], boughtOptions[1]])
   const alert = useAlert()
   const [alertMessage, setAlertMessage] = useState();
+  const user = getUserFromLocalStorage();
 
   const favorites = (data) => {
     axios
-      .post("http://localhost:4000/api/albums/favorites", data)
+      .post("http://localhost:4000/api/albums/favorites", {data, user: user.username})
       .then(res => {
         setAlertMessage(res.data.message);
       })
@@ -44,7 +46,7 @@ function Search() {
     let result = selectedOptions.map(a => a.value);
     data.boughtMedium = result;
     axios
-      .post("http://localhost:4000/api/albums/bought", data)
+      .post("http://localhost:4000/api/albums/bought", {data, user: user.username})
       .then(res => {
         setAlertMessage(res.data.message);
       })

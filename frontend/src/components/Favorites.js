@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import Modal from 'react-modal';
+import { getUserFromLocalStorage } from '../components/auth/AuthService';
 
 const options = [
   { value: 'artistName-ascending', label: 'Artist Name Ascending' },
@@ -23,6 +24,7 @@ const customStyles = {
 };
 
 function Favorites() {
+  const user = getUserFromLocalStorage();
   const [album, setAlbum] = useState([]);
   const [selectedOption, setSelectedOption] = useState("artistName-ascending");
   const [modalIsOpen, setIsOpen] = useState(false);

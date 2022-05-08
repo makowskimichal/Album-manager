@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
 import Modal from 'react-modal';
+import { getUserFromLocalStorage } from '../components/auth/AuthService';
 
 const options = [
   { value: 'artistName-ascending', label: 'Artist Name Ascending' },
@@ -28,9 +29,10 @@ function Bought() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [activeAlbum, setActiveAlbum] = useState(null);
   const [albumDeleted, setAlbumDeleted] = useState(null);
+  const user = getUserFromLocalStorage();
 
   useEffect(() => {
-    axios.get("http://localhost:4000/api/albums/bought", { params: { name: selectedOption.value } }).then((res) => {
+    axios.get("http://localhost:4000/api/albums/bought", { params: { name: selectedOption.value, user: user.username } }).then((res) => {
         setAlbum(res.data);
     });
   }, [selectedOption, albumDeleted]);
