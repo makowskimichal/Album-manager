@@ -3,12 +3,16 @@ const router = express.Router();
 const mongoose = require('mongoose');
 var _ = require("underscore");
 const { Album } = require('../models/album');
+const auth = require('../middleware/auth')
+require('dotenv').config();
+
+const {SPOTIFY_ID, SPOTIFY_SECRET} = process.env
 
 var SpotifyWebApi = require('spotify-web-api-node');
 
 var spotifyApi = new SpotifyWebApi({
-    clientId: '351a398ff7d647ac94c905995227b44e',
-    clientSecret: 'b029d14c5e544baeb3e7b52a256fc1fe'
+    clientId: SPOTIFY_ID,
+    clientSecret: SPOTIFY_SECRET
 });
 
 spotifyApi.clientCredentialsGrant().then(
@@ -39,7 +43,7 @@ setInterval(() => {
 
   // Search albums by anything related to it
 
-  router.get('/search', async (req, res) => {
+  router.get('/search', auth, async (req, res) => {
     let name = req.query.name;
     let array = [];
     spotifyApi.searchAlbums(name, { limit: 5 }).then(
@@ -50,6 +54,7 @@ setInterval(() => {
               artistName: item.artists[0].name,
               artistId: item.artists[0].id,
               imageUrl: item.images[2].url,
+              imageUrlBig: item.images[0].url,
               albumName: item.name,
               tracksNumber: item.total_tracks,
               releaseDate: item.release_date
@@ -93,6 +98,7 @@ router.post('/favorites', async (req, res) => {
       artistName: req.body.artistName,
       artistId: req.body.artistId,
       imageUrl: req.body.imageUrl,
+      imageUrlBig: req.body.imageUrlBig,
       albumName: req.body.albumName,
       tracksNumber: req.body.tracksNumber,
       releaseDate: req.body.releaseDate,
@@ -147,6 +153,7 @@ router.post('/bought', async (req, res) => {
       artistName: req.body.artistName,
       artistId: req.body.artistId,
       imageUrl: req.body.imageUrl,
+      imageUrlBig: req.body.imageUrlBig,
       albumName: req.body.albumName,
       tracksNumber: req.body.tracksNumber,
       releaseDate: req.body.releaseDate,
