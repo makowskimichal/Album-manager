@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 var _ = require("underscore");
 var SpotifyWebApi = require('spotify-web-api-node');
 const { Album } = require('../models/album');
-const auth = require('../middleware/auth')
 require('dotenv').config();
 
 const {SPOTIFY_ID, SPOTIFY_SECRET} = process.env
@@ -42,7 +41,7 @@ setInterval(() => {
 
   // Search albums by anything related to it
 
-  router.get('/search', auth, async (req, res) => {
+  router.get('/search', async (req, res) => {
     let name = req.query.name;
     let array = [];
     spotifyApi.searchAlbums(name, { limit: 5 }).then(

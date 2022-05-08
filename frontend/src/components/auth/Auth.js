@@ -1,5 +1,5 @@
 import React from 'react';
-import { login, register } from './AuthenticationService';
+import { login, register } from './AuthService';
 
 export class AuthenticationComponent extends React.Component {
     constructor(props) {

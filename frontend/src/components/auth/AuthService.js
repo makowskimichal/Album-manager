@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const login = (email, password) => {
+export const login = (username, password) => {
     return axios
         .post(`http://localhost:4000/api/users/login`, {
-            email,
+            username,
             password,
         })
         .then((res) => {
@@ -13,12 +13,12 @@ export const login = (email, password) => {
         });
 };
 
-export const register = (username, password, email) => {
+export const register = (username, password, mail) => {
     return axios
         .post(`http://localhost:4000/api/users/register`, {
             username,
             password,
-            email,
+            mail,
         })
         .then((res) => {
             const user = Object.assign(new User(), res.data);
@@ -36,9 +36,9 @@ export const getUserFromLocalStorage = () => {
 };
 
 export class User {
-    constructor(userId, username, email) {
+    constructor(userId, username, mail) {
         this.username = username;
-        this.email = email;
+        this.mail = mail;
         this.userId = userId;
     }
 }

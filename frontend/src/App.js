@@ -8,22 +8,52 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Recommendations from './components/Recommendations';
 import { AlertProvider } from 'react-bootstrap-hooks-alert';
+import { createBrowserHistory } from 'history';
+import { getUserFromLocalStorage } from './components/auth/AuthService';
+import { AuthenticationComponent } from './components/auth/Auth';
 
 function App() {
+  const user = getUserFromLocalStorage();
+  const history = createBrowserHistory();
+
+  if (!user) {
+    history.push('/login');
+  } else if (history.location.pathname === '/login') {
+    history.push('/');
+  }
+
   return (
-    <AlertProvider timeouts={{ warning: 2000, success: 1000 }}>
-      <Router>
-        <div className="App">
-          <Nav />
-          <Routes>
-          <Route path="/" element={<Search />} />
-          <Route path="/favorites" element={<Favorites />} />
-          <Route path="/bought" element={<Bought />} />
-          <Route path="/recommend" element={<Recommendations />} />
-          </Routes>
+    <div className='App'>
+      {user && (
+        <div>
+          User: {user.username}
+          <button
+              className="btn btn-primary"
+              onClick={() => {
+                  localStorage.removeItem('user');
+                  window.location.reload(true);
+              }}
+          >
+              Logout
+          </button>
         </div>
-      </Router>
-    </AlertProvider>
+      )}
+      <AlertProvider timeouts={{ warning: 2000, success: 1000 }}>
+        <Router history={history}>
+          <div className="App">
+            <Nav />
+            <Routes>
+            <Route path="/login" element={<AuthenticationComponent />} />
+            <Route path="/" element={<Search />} />
+            <Route path="/favorites" element={<Favorites />} />
+            <Route path="/bought" element={<Bought />} />
+            <Route path="/recommend" element={<Recommendations />} />
+            </Routes>
+          </div>
+        </Router>
+      </AlertProvider>
+    </div>
+
   );
 }
 
