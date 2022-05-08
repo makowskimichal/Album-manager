@@ -63,6 +63,12 @@ const albumSchema = new mongoose.Schema({
     lastUpdated: {
         type: Date,
         default: Date.now()
+    },
+    userId: {
+        type: String,
+        minlength: 1,
+        maxlength: 250,
+        required: false
     }
 });
 

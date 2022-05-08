@@ -2,13 +2,12 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 var _ = require("underscore");
+var SpotifyWebApi = require('spotify-web-api-node');
 const { Album } = require('../models/album');
 const auth = require('../middleware/auth')
 require('dotenv').config();
 
 const {SPOTIFY_ID, SPOTIFY_SECRET} = process.env
-
-var SpotifyWebApi = require('spotify-web-api-node');
 
 var spotifyApi = new SpotifyWebApi({
     clientId: SPOTIFY_ID,
