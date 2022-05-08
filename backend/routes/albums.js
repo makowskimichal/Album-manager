@@ -110,7 +110,6 @@ router.post('/favorites', async (req, res) => {
 // delete from favorites list
 
 router.post('/deleteFavorite', async(req, res) => {
-  console.log(req.body.isBought);
   if(req.body.isBought === true) {
     return res.send(await Album.findOneAndUpdate({ imageUrl: req.body.imageUrl }, { isFavorite: false }));
   } else {
