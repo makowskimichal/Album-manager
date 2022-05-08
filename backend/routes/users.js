@@ -7,7 +7,6 @@ const router = express.Router();
 router.post('/register', async (req, res) => {
     let user = await User.findOne({ username: req.body.username });
     if (user) return res.status(400).send('User already registered');
-
     user = new User (_.pick(req.body, ['username', 'mail', 'password']));
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);

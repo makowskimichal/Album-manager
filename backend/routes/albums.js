@@ -125,19 +125,19 @@ router.post('/deleteFavorite', async(req, res) => {
 
 router.get('/bought', async (req, res) => {
   if(req.query.name === "artistName-descending"){
-    const albums = await Album.find({ isBought: true }).sort({artistName: -1});
+    const albums = await Album.find({ isBought: true, username: req.query.user }).sort({artistName: -1});
     return res.send(albums);
   } else if(req.query.name === "artistName-ascending"){
-    const albums = await Album.find({ isBought: true }).sort({artistName: 1});
+    const albums = await Album.find({ isBought: true, username: req.query.user }).sort({artistName: 1});
     return res.send(albums);
   } else if(req.query.name === "albumName-ascending"){
-    const albums = await Album.find({ isBought: true }).sort({albumName: 1});
+    const albums = await Album.find({ isBought: true, username: req.query.user }).sort({albumName: 1});
     return res.send(albums);
   } else if(req.query.name === "albumName-descending"){
-    const albums = await Album.find({ isBought: true }).sort({albumName: -1});
+    const albums = await Album.find({ isBought: true, username: req.query.user }).sort({albumName: -1});
     return res.send(albums);
   } else if(req.query.name === undefined){
-    const albums = await Album.find({ isBought: true }).sort({lastUpdated: -1});
+    const albums = await Album.find({ isBought: true, username: req.query.user }).sort({lastUpdated: -1});
     return res.send(albums);
   }
 })
@@ -148,16 +148,17 @@ router.post('/bought', async (req, res) => {
   const oldAlbum = await Album.findOne({ imageUrl: req.body.imageUrl } );
   if(!oldAlbum) {
     const album = new Album({
-      artistName: req.body.artistName,
-      artistId: req.body.artistId,
-      imageUrl: req.body.imageUrl,
-      imageUrlBig: req.body.imageUrlBig,
-      albumName: req.body.albumName,
-      tracksNumber: req.body.tracksNumber,
-      releaseDate: req.body.releaseDate,
+      artistName: req.body.data.artistName,
+      artistId: req.body.data.artistId,
+      imageUrl: req.body.data.imageUrl,
+      imageUrlBig: req.body.data.imageUrlBig,
+      albumName: req.body.data.albumName,
+      tracksNumber: req.body.data.tracksNumber,
+      releaseDate: req.body.data.releaseDate,
       isBought: true,
-      boughtMedium: req.body.boughtMedium,
-      lastUpdated: Date.now()
+      boughtMedium: req.body.data.boughtMedium,
+      lastUpdated: Date.now(),
+      username: req.body.user
     });
     return res.send({message: "New album has been added", album: album.save()});
   } else if(oldAlbum.isBought === true && JSON.stringify(req.body.boughtMedium) === JSON.stringify(oldAlbum.boughtMedium)) {

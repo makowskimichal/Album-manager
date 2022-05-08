@@ -53,6 +53,10 @@ const albumSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    isWishlist: {
+        type: Boolean,
+        default: false
+    },
     boughtMedium: {
         type: [String],
         required: false,
@@ -64,7 +68,11 @@ const albumSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    userId: {
+    albumAdded: {
+        type: Date,
+        default: Date.now()
+    },
+    username: {
         type: String,
         minlength: 1,
         maxlength: 250,
