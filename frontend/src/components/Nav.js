@@ -12,9 +12,10 @@ function Nav() {
           paddingBottom: "1rem"
         }}
       >
-        <Link to='/' style={{ margin: 10 }}>Search</Link>
+        <Link to='/search' style={{ margin: 10 }}>Search</Link>
         <Link to='/favorites' style={{ margin: 10 }}>Favorites</Link>
         <Link to='/bought' style={{ margin: 10 }}>Bought</Link>
+        <Link to='/wishlist' style={{ margin: 10 }}>Wishlist</Link>
         <Link to='/recommend' style={{ margin: 10 }}>Recommendations</Link>
       </nav>
     </div>

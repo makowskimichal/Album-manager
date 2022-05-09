@@ -45,10 +45,6 @@ const albumSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    isPlanned: {
-        type: Boolean,
-        default: false
-    },
     isBought: {
         type: Boolean,
         default: false
@@ -68,9 +64,9 @@ const albumSchema = new mongoose.Schema({
         type: Date,
         default: Date.now()
     },
-    albumAdded: {
+    albumBought: {
         type: Date,
-        default: Date.now()
+        required: false
     },
     username: {
         type: String,

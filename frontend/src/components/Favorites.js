@@ -24,22 +24,22 @@ const customStyles = {
 };
 
 function Favorites() {
-  const user = getUserFromLocalStorage();
   const [album, setAlbum] = useState([]);
   const [selectedOption, setSelectedOption] = useState("artistName-ascending");
   const [modalIsOpen, setIsOpen] = useState(false);
   const [activeAlbum, setActiveAlbum] = useState(null);
   const [albumDeleted, setAlbumDeleted] = useState(null);
+  const user = getUserFromLocalStorage();
 
   useEffect(() => {
-    axios.get("http://localhost:4000/api/albums/favorites", { params: { name: selectedOption.value } }).then((res) => {
+    axios.get("http://localhost:4000/api/albums/favorites", { params: { name: selectedOption.value, user: user.username } }).then((res) => {
         setAlbum(res.data);
     });
   }, [selectedOption, albumDeleted]);
 
   const deleteFavorite = (data) => {
     axios
-      .post("http://localhost:4000/api/albums/deleteFavorite", data)
+      .post("http://localhost:4000/api/albums/deleteFavorite", {data, user: user.username})
       .then(res => {
         setAlbumDeleted(res.data);
       })

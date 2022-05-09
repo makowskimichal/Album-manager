@@ -39,7 +39,7 @@ function Bought() {
 
   const deleteBought = (data) => {
     axios
-      .post("http://localhost:4000/api/albums/deleteBought", data)
+      .post("http://localhost:4000/api/albums/deleteBought", {data, user: user.username})
       .then(res => {
         setAlbumDeleted(res.data);
       })

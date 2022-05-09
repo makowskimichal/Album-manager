@@ -10,7 +10,7 @@ import Recommendations from './components/Recommendations';
 import { AlertProvider } from 'react-bootstrap-hooks-alert';
 import { createBrowserHistory } from 'history';
 import { getUserFromLocalStorage } from './components/auth/AuthService';
-import { AuthenticationComponent } from './components/auth/Auth';
+import { Authentication } from './components/auth/Auth';
 
 function App() {
   const user = getUserFromLocalStorage();
@@ -41,13 +41,14 @@ function App() {
       <AlertProvider timeouts={{ warning: 2000, success: 1000 }}>
         <Router history={history}>
           <div className="App">
-            <Nav />
+            {history.location.pathname !== "/login" && <Nav />}
             <Routes>
-            <Route path="/login" element={<AuthenticationComponent />} />
-            <Route path="/" element={<Search />} />
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/bought" element={<Bought />} />
-            <Route path="/recommend" element={<Recommendations />} />
+              <Route path="/login" element={<Authentication />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/bought" element={<Bought />} />
+              <Route path="/recommend" element={<Recommendations />} />
+              <Route path="/" element={<Search />} />
             </Routes>
           </div>
         </Router>
