@@ -104,7 +104,7 @@ router.post('/favorites', async (req, res) => {
       lastUpdated: Date.now(),
       username: req.body.user
     });
-    return res.send({message: `${oldAlbum.albumName} has been added`, album: album.save()});
+    return res.send({message: `${album.albumName} has been added`, album: album.save()});
   } else if(oldAlbum.isFavorite === true) {
     return res.send({message: `You have already added ${oldAlbum.albumName} to favorites`});
   } else if (oldAlbum.isFavorite === false) {
@@ -248,7 +248,7 @@ router.post('/deleteWishlist', async(req, res) => {
 // get recommendations based on last addded artist
 
 router.get('/recommend', async(req, res) => {
-  Album.find().sort({ lastUpdated: -1, username: req.body.user }).limit(5).exec((err, album) => {
+  Album.find({ username: req.query.user }).sort({ lastUpdated: -1 }).limit(5).exec((err, album) => {
     if(err){
       res.send(err);
     } else {
