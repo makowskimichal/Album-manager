@@ -41,7 +41,7 @@ export class Authentication extends React.Component {
     render() {
         return (
             <div>
-                <h1>Bauhinia</h1>
+                <h1>Melomaniac</h1>
                 <h2>Login</h2>
                 <div className="map-list-container">
                     <label>
