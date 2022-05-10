@@ -163,7 +163,7 @@ router.post('/bought', async (req, res) => {
       albumBought: Date.now(),
       username: req.body.user
     });
-    return res.send({message: `${oldAlbum.albumName} has been added`, album: album.save()});
+    return res.send({message: `${album.albumName} has been added`, album: album.save()});
   } else if(oldAlbum.isBought === true && JSON.stringify(req.body.data.boughtMedium) === JSON.stringify(oldAlbum.boughtMedium)) {
     return res.send({message: `You have already purchased ${oldAlbum.albumName}`});
   } else if(oldAlbum.isBought === true && JSON.stringify(req.body.data.boughtMedium) !== JSON.stringify(oldAlbum.boughtMedium)){
