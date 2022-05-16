@@ -4,13 +4,14 @@ import { getUserFromLocalStorage } from '../components/auth/AuthService';
 
 function Recommendations() {
     const [album, setAlbum] = useState([]);
-    const user = getUserFromLocalStorage();
 
     useEffect(() => {
-        axios.get("http://localhost:4000/api/albums/recommend", { params: {user: user.username} }).then((res) => {
-            setAlbum(res.data);
-        });
-      }, []);
+      const user = getUserFromLocalStorage();
+
+      axios.get("http://localhost:4000/api/albums/recommend", { params: {user: user.username} }).then((res) => {
+          setAlbum(res.data);
+      });
+    }, []);
 
 return (
     <div className="container-fluid">

@@ -2,7 +2,9 @@ import React from 'react';
 import Nav from './components/Nav';
 import Search from './components/Search';
 import Favorites from './components/Favorites';
+import Wishlist from './components/Wishlist';
 import Bought from './components/Bought';
+import Frontpage from './components/Frontpage';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -47,8 +49,9 @@ function App() {
               <Route path="/search" element={<Search />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/bought" element={<Bought />} />
+              <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/recommend" element={<Recommendations />} />
-              <Route path="/" element={<Search />} />
+              <Route path="/" element={<Frontpage />} />
             </Routes>
           </div>
         </Router>

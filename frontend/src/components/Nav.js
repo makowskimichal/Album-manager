@@ -5,7 +5,9 @@ import 'react-bootstrap';
 function Nav() {
     return(
       <div>
-      <h1>Melomaniac</h1>
+        <Link to='/' style={{ textDecoration: 'none' }}>
+          <h1>Melomaniac</h1>
+        </Link>
       <nav
         style={{
           borderBottom: "solid 1px",

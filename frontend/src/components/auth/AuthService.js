@@ -1,30 +1,26 @@
 import axios from 'axios';
 
-export const login = (username, password) => {
-    return axios
+export const login = async (username, password) => {
+    const res = await axios
         .post(`http://localhost:4000/api/users/login`, {
             username,
             password,
-        })
-        .then((res) => {
-            const user = Object.assign(new User(), res.data);
-            localStorage.setItem('user', JSON.stringify(user));
-            return user;
         });
+    const user = Object.assign(new User(), res.data);
+    localStorage.setItem('user', JSON.stringify(user));
+    return user;
 };
 
-export const register = (username, password, mail) => {
-    return axios
+export const register = async (username, password, mail) => {
+    const res = await axios
         .post(`http://localhost:4000/api/users/register`, {
             username,
             password,
             mail,
-        })
-        .then((res) => {
-            const user = Object.assign(new User(), res.data);
-            localStorage.setItem('user', JSON.stringify(user));
-            return user;
         });
+    const user = Object.assign(new User(), res.data);
+    localStorage.setItem('user', JSON.stringify(user));
+    return user;
 };
 
 export const getUserFromLocalStorage = () => {

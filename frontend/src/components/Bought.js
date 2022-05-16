@@ -29,15 +29,18 @@ function Bought() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [activeAlbum, setActiveAlbum] = useState(null);
   const [albumDeleted, setAlbumDeleted] = useState(null);
-  const user = getUserFromLocalStorage();
 
   useEffect(() => {
+    const user = getUserFromLocalStorage();
+
     axios.get("http://localhost:4000/api/albums/bought", { params: { name: selectedOption.value, user: user.username } }).then((res) => {
         setAlbum(res.data);
     });
   }, [selectedOption, albumDeleted]);
 
   const deleteBought = (data) => {
+    const user = getUserFromLocalStorage();
+
     axios
       .post("http://localhost:4000/api/albums/deleteBought", {data, user: user.username})
       .then(res => {

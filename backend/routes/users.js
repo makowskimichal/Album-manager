@@ -25,4 +25,12 @@ router.post('/login', async (req, res) => {
     res.send( _.pick(user, ['_id', 'username', 'mail']))
 });
 
+router.get('/search', async (req, res) => {
+    let name = req.query.name;
+
+    const users = await User.find({$username: {$search: `${name}`}});
+    console.log(users)
+    res.send(true)
+})
+
 module.exports = router;

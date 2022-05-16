@@ -42,6 +42,14 @@ function Search() {
       })
   }
 
+  const wishlist = (data) => {
+    axios
+      .post("http://localhost:4000/api/albums/wishlist", {data, user: user.username})
+      .then(res => {
+        setAlertMessage(res.data.message);
+      })
+  }
+
   const bought = (data, selectedOptions) => {
     let result = selectedOptions.map(a => a.value);
     data.boughtMedium = result;
@@ -120,6 +128,9 @@ function Search() {
             >
               Add to bought
             </button>
+            </div>
+            <div className='col-2'>
+            <button onClick={() => wishlist(result)}>Add to wishlist</button>
             </div>
           </div>
         ))}

@@ -23,26 +23,26 @@ const customStyles = {
   },
 };
 
-function Favorites() {
+function Wishlist() {
   const [album, setAlbum] = useState([]);
   const [selectedOption, setSelectedOption] = useState("artistName-ascending");
   const [modalIsOpen, setIsOpen] = useState(false);
   const [activeAlbum, setActiveAlbum] = useState(null);
-  const [albumDeleted, setAlbumDeleted] = useState(null);
+  const [albumDeleted, setAlbumDeleted] = useState(null);;
 
   useEffect(() => {
     const user = getUserFromLocalStorage();
 
-    axios.get("http://localhost:4000/api/albums/favorites", { params: { name: selectedOption.value, user: user.username } }).then((res) => {
+    axios.get("http://localhost:4000/api/albums/wishlist", { params: { name: selectedOption.value, user: user.username } }).then((res) => {
         setAlbum(res.data);
     });
   }, [selectedOption, albumDeleted]);
 
-  const deleteFavorite = (data) => {
+  const deleteWishlist = (data) => {
     const user = getUserFromLocalStorage();
-
+    
     axios
-      .post("http://localhost:4000/api/albums/deleteFavorite", {data, user: user.username})
+      .post("http://localhost:4000/api/albums/deleteWishlist", {data, user: user.username})
       .then(res => {
         setAlbumDeleted(res.data);
       })
@@ -54,15 +54,15 @@ function Favorites() {
       onRequestClose={() => setIsOpen(false)}
       style={customStyles}
     >
-      <h1>Do u want to delete album {album.artistName} - {album.albumName} from favorites?</h1>
-      <button onClick={() => {deleteFavorite(album); setIsOpen(false)}}>Delete</button>
+      <h1>Do u want to delete album {album.artistName} - {album.albumName} from wishlist?</h1>
+      <button onClick={() => {deleteWishlist(album); setIsOpen(false)}}>Delete</button>
       <button onClick={() => setIsOpen(false)}>Close</button>
     </Modal>
   );
 
   return(
     <section>
-      <h1>Favorite albums</h1>
+      <h1>Wishlist albums</h1>
       <div className='container-fluid align-middle mt-3 mb-1' style={{width: "80%"}}>
       <Select
           defaultValue={selectedOption}
@@ -89,7 +89,7 @@ function Favorites() {
               setActiveAlbum(album);
             }}
           >
-            Delete from favorites
+            Delete from wishlist
           </button>
           </div>
         </div>
@@ -100,4 +100,4 @@ function Favorites() {
   );
 }
 
-export default Favorites;
+export default Wishlist;

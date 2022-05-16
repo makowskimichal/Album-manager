@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 var _ = require("underscore");
 var SpotifyWebApi = require('spotify-web-api-node');
 const { Album } = require('../models/album');
@@ -221,11 +221,11 @@ router.post('/wishlist', async (req, res) => {
       albumName: req.body.data.albumName,
       tracksNumber: req.body.data.tracksNumber,
       releaseDate: req.body.data.releaseDate,
-      isWishlist: true,
+      isWishlist: false,
       lastUpdated: Date.now(),
       username: req.body.user
     });
-    return res.send({message: `${oldAlbum.albumName} has been added`, album: album.save()});
+    return res.send({message: `${album.albumName} has been added`, album: album.save()});
   } else if(oldAlbum.isWishlist === true) {
     return res.send({message: `Album ${oldAlbum.albumName} is already on the wishlist`});
   } else if(oldAlbum.isBought === true) {
