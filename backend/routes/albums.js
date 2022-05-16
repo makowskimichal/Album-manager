@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-// const mongoose = require('mongoose');
 var _ = require("underscore");
 var SpotifyWebApi = require('spotify-web-api-node');
 const { Album } = require('../models/album');
