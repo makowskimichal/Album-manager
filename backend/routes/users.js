@@ -4,6 +4,8 @@ const {User} = require('../models/user');
 const express = require('express');
 const router = express.Router();
 
+// register a user
+
 router.post('/register', async (req, res) => {
     let user = await User.findOne({ username: req.body.username });
     if (user) return res.status(400).send('User already registered');
@@ -15,6 +17,8 @@ router.post('/register', async (req, res) => {
     res.send( _.pick(user, ['_id', 'username', 'mail']))
 });
 
+// login a user
+
 router.post('/login', async (req, res) => {
     let user = await User.findOne({ username: req.body.username });
     if (!user) return res.status(400).send('No such user');
@@ -24,6 +28,8 @@ router.post('/login', async (req, res) => {
 
     res.send( _.pick(user, ['_id', 'username', 'mail']))
 });
+
+// search for users
 
 router.get('/search', async (req, res) => {
     let name = req.query.name;

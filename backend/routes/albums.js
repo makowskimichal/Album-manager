@@ -50,6 +50,8 @@ setInterval(() => {
           array.push(
             new Album({
               artistName: item.artists[0].name,
+              albumId: item.id,
+              link: item.external_urls.spotify,
               artistId: item.artists[0].id,
               imageUrl: item.images[2].url,
               imageUrlBig: item.images[0].url,
@@ -95,6 +97,8 @@ router.post('/favorites', async (req, res) => {
     const album = new Album({
       artistName: req.body.data.artistName,
       artistId: req.body.data.artistId,
+      albumId: req.body.data.albumId,
+      link: req.body.data.link,
       imageUrl: req.body.data.imageUrl,
       imageUrlBig: req.body.data.imageUrlBig,
       albumName: req.body.data.albumName,
@@ -151,6 +155,8 @@ router.post('/bought', async (req, res) => {
     const album = new Album({
       artistName: req.body.data.artistName,
       artistId: req.body.data.artistId,
+      albumId: req.body.data.albumId,
+      link: req.body.data.link,
       imageUrl: req.body.data.imageUrl,
       imageUrlBig: req.body.data.imageUrlBig,
       albumName: req.body.data.albumName,
@@ -216,6 +222,8 @@ router.post('/wishlist', async (req, res) => {
     const album = new Album({
       artistName: req.body.data.artistName,
       artistId: req.body.data.artistId,
+      albumId: req.body.data.albumId,
+      link: req.body.data.link,
       imageUrl: req.body.data.imageUrl,
       imageUrlBig: req.body.data.imageUrlBig,
       albumName: req.body.data.albumName,
@@ -271,10 +279,39 @@ router.get('/recommend', async(req, res) => {
       });
       return res.send(array);
     }, function(err) {
-      console.log("err")
+      console.log(err)
     })
   });
-
 })
+
+
+// return info about a single album
+
+router.get('/info', async(req, res) => {
+  const albumId = req.query.albumId;
+  
+  spotifyApi.getAlbum(`${albumId}`)
+    .then(function(data) {
+      const tracks = [] 
+      _.each(data.body.tracks.items, (item, index) => {
+        tracks.push(item.name)
+      })
+
+      return res.send({
+        artistName: data.body.artists[0].name,
+        albumId: data.body.id,
+        link: data.body.external_urls.spotify,
+        artistId: data.body.artists[0].id,
+        imageUrl: data.body.images[2].url,
+        imageUrlBig: data.body.images[0].url,
+        albumName: data.body.name,
+        tracksNumber: data.body.total_tracks,
+        releaseDate: data.body.release_date,
+        tracks: tracks
+      });
+    }, function(err) {
+      console.log(err)
+    });
+  });
 
 module.exports = router;

@@ -13,6 +13,18 @@ const albumSchema = new mongoose.Schema({
         maxlength: 250,
         required: true 
     },
+    albumId: {
+        type: String,
+        minlength: 1,
+        maxlength: 250,
+        required: true 
+    } ,
+    link:  {
+        type: String,
+        minlength: 1,
+        maxlength: 250,
+        required: true 
+    },
     imageUrl: {
         type: String,
         minlength: 1,
