@@ -5,6 +5,7 @@ import Favorites from './components/Favorites';
 import Wishlist from './components/Wishlist';
 import Bought from './components/Bought';
 import Frontpage from './components/Frontpage';
+import AlbumInfo from './components/AlbumInfo';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -51,6 +52,7 @@ function App() {
               <Route path="/bought" element={<Bought />} />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/recommend" element={<Recommendations />} />
+              <Route path="/album/:albumId" element={<AlbumInfo />} />
               <Route path="/" element={<Frontpage />} />
             </Routes>
           </div>

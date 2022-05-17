@@ -269,6 +269,7 @@ router.get('/recommend', async(req, res) => {
           new Album({
             artistName: item.album.artists[0].name,
             artistId: item.album.artists[0].id,
+            albumId: item.id,
             imageUrl: item.album.images[2].url,
             albumName: item.album.name,
             tracksNumber: item.album.total_tracks,
@@ -286,8 +287,8 @@ router.get('/recommend', async(req, res) => {
 
 // return info about a single album
 
-router.get('/info', async(req, res) => {
-  const albumId = req.query.albumId;
+router.get('/info/:albumId', async(req, res) => {
+  const albumId = req.params.albumId;
   
   spotifyApi.getAlbum(`${albumId}`)
     .then(function(data) {

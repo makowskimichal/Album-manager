@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { getUserFromLocalStorage } from '../components/auth/AuthService';
+import { useNavigate } from 'react-router-dom';
 
 function Recommendations() {
     const [album, setAlbum] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
       const user = getUserFromLocalStorage();
@@ -20,7 +22,7 @@ return (
         {album.map(album => (
           <div className="row" style={{padding: "1.85%"}} key={album}>
             <div className="col-2">
-              <img src={album.imageUrl} alt="cover"/>
+              <img src={album.imageUrl} alt="cover" style={{cursor: 'pointer'}} onClick={()=> navigate(`/album/${album.albumId}`)}/>
             </div>
             <div className="col">
               {album.artistName}

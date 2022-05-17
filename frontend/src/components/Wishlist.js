@@ -3,6 +3,7 @@ import axios from 'axios';
 import Select from 'react-select';
 import Modal from 'react-modal';
 import { getUserFromLocalStorage } from '../components/auth/AuthService';
+import { useNavigate } from 'react-router-dom';
 
 const options = [
   { value: 'artistName-ascending', label: 'Artist Name Ascending' },
@@ -28,7 +29,8 @@ function Wishlist() {
   const [selectedOption, setSelectedOption] = useState("artistName-ascending");
   const [modalIsOpen, setIsOpen] = useState(false);
   const [activeAlbum, setActiveAlbum] = useState(null);
-  const [albumDeleted, setAlbumDeleted] = useState(null);;
+  const [albumDeleted, setAlbumDeleted] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user = getUserFromLocalStorage();
@@ -74,7 +76,7 @@ function Wishlist() {
       {album.map(album =>(
         <div className='row' style={{padding: "1.85%"}} key={album}>
           <div className='col-2'>
-            <img src={album.imageUrl} alt="cover"/>
+            <img src={album.imageUrl} alt="cover" style={{cursor: 'pointer'}} onClick={()=> navigate(`/album/${album.albumId}`)}/>
           </div>
           <div className='col'>
           {album.artistName}

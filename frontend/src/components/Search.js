@@ -4,6 +4,7 @@ import axios from 'axios';
 import Select from 'react-select';
 import Modal from 'react-modal';
 import { useAlert } from 'react-alert'
+import { useNavigate } from 'react-router-dom';
 import { getUserFromLocalStorage } from '../components/auth/AuthService';
 
 const boughtOptions = [
@@ -33,6 +34,7 @@ function Search() {
   const alert = useAlert()
   const [alertMessage, setAlertMessage] = useState();
   const user = getUserFromLocalStorage();
+  const navigate = useNavigate();
 
   const favorites = (data) => {
     axios
@@ -108,7 +110,7 @@ function Search() {
         {searchResult.map(result => (
           <div className="row" style={{padding: "1.85%"}} key={result.imageUrl}> 
             <div className="col-2">
-              <img className="pr-10" key={result.imageUrl} src={result.imageUrl} alt=""/>
+              <img className="pr-10" key={result.imageUrl} src={result.imageUrl} alt="" style={{cursor: 'pointer'}} onClick={()=> navigate(`/album/${result.albumId}`)}/>
             </div>
             <div className='col'>
             {result.albumName}

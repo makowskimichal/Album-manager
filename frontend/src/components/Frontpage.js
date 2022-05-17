@@ -1,13 +1,14 @@
 import React, { useEffect, useState }  from 'react';
 import axios from 'axios';
 import Carousel from 'react-grid-carousel';
+import { useNavigate } from 'react-router-dom';
 import { getUserFromLocalStorage } from '../components/auth/AuthService';
 
 function Frontpage() {
     const [favorite, setFavorite] = useState([]);
     const [bought, setBought] = useState([]);
     const [wishlist, setWishlist] = useState([]);
-    // const user = getUserFromLocalStorage();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const user = getUserFromLocalStorage();
@@ -40,7 +41,7 @@ function Frontpage() {
             <div>
             <Carousel cols={5} rows={1} gap={0} loop>
                 {favorite.map(favorite =>(
-                    <Carousel.Item> <img src={favorite.imageUrlBig} alt="cover" width={200} height={200}/></Carousel.Item>
+                    <Carousel.Item> <img src={favorite.imageUrlBig} alt="cover" width={200} height={200} style={{cursor: 'pointer'}} onClick={()=> navigate(`/album/${favorite.albumId}`)}/></Carousel.Item>
                 ))}
             </Carousel>
             </div>
@@ -48,7 +49,7 @@ function Frontpage() {
             <div>
             <Carousel cols={5} rows={1} gap={0} loop>
                 {bought.map(bought =>(
-                    <Carousel.Item> <img src={bought.imageUrlBig} alt="cover" width={200} height={200}/></Carousel.Item>
+                    <Carousel.Item> <img src={bought.imageUrlBig} alt="cover" width={200} height={200} style={{cursor: 'pointer'}} onClick={()=> navigate(`/album/${bought.albumId}`)}/></Carousel.Item>
                 ))}
             </Carousel>
             </div>
@@ -56,7 +57,7 @@ function Frontpage() {
             <div>
             <Carousel cols={5} rows={1} gap={0} loop>
                 {wishlist.map(wishlist =>(
-                    <Carousel.Item> <img src={wishlist.imageUrlBig} alt="cover" width={200} height={200}/></Carousel.Item>
+                    <Carousel.Item> <img src={wishlist.imageUrlBig} alt="cover" width={200} height={200} style={{cursor: 'pointer'}} onClick={()=> navigate(`/album/${wishlist.albumId}`)}/></Carousel.Item>
                 ))}
             </Carousel>
             </div>
