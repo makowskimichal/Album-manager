@@ -74,7 +74,7 @@ function Bought() {
       </div>
       <div className="container-fluid">
         {album.map(album => (
-          <div className="row" style={{padding: "1.85%"}} key={album}>
+          <div className="row" style={{padding: "1.85%"}} key={album.albumId}>
             <div className="col-2">
               <img src={album.imageUrl} alt="cover" style={{cursor: 'pointer'}} onClick={()=> navigate(`/album/${album.albumId}`)}/>
             </div>

@@ -6,6 +6,7 @@ import Wishlist from './components/Wishlist';
 import Bought from './components/Bought';
 import Frontpage from './components/Frontpage';
 import AlbumInfo from './components/AlbumInfo';
+import UserInfo from './components/UserInfo';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -27,24 +28,24 @@ function App() {
 
   return (
     <div className='App'>
-      {user && (
-        <div>
-          Welcome back {user.username}!
-          <button
-              className="btn btn-primary"
-              onClick={() => {
-                  localStorage.removeItem('user');
-                  window.location.reload(true);
-              }}
-          >
-              Logout
-          </button>
-        </div>
-      )}
       <AlertProvider timeouts={{ warning: 2000, success: 1000 }}>
         <Router history={history}>
           <div className="App">
             {history.location.pathname !== "/login" && <Nav />}
+            {user && (
+              <div  style={{float: 'right'}}>
+                Welcome back {user.username}!
+                <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                        localStorage.removeItem('user');
+                        window.location.reload(true);
+                    }}
+                >
+                    Logout
+                </button>
+              </div>
+            )}
             <Routes>
               <Route path="/login" element={<Authentication />} />
               <Route path="/search" element={<Search />} />
@@ -53,6 +54,7 @@ function App() {
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/recommend" element={<Recommendations />} />
               <Route path="/album/:albumId" element={<AlbumInfo />} />
+              <Route path="/user/:username" element={<UserInfo />} />
               <Route path="/" element={<Frontpage />} />
             </Routes>
           </div>

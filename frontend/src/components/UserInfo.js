@@ -2,37 +2,33 @@ import React, { useEffect, useState }  from 'react';
 import axios from 'axios';
 import Carousel from 'react-grid-carousel';
 import { useNavigate } from 'react-router-dom';
-import { getUserFromLocalStorage } from '../components/auth/AuthService';
+import { useParams } from 'react-router-dom';
 
 function Frontpage() {
     const [favorite, setFavorite] = useState([]);
     const [bought, setBought] = useState([]);
     const [wishlist, setWishlist] = useState([]);
     const navigate = useNavigate();
+    const {username} = useParams();
+    
 
     useEffect(() => {
-        const user = getUserFromLocalStorage();
-
-        axios.get("http://localhost:4000/api/albums/favorites", { params: { user: user.username } }).then((res) => {
+        axios.get("http://localhost:4000/api/albums/favorites", { params: { user: username } }).then((res) => {
             setFavorite(res.data);
         });
-      }, []);
+      }, [username]);
 
       useEffect(() => {
-        const user = getUserFromLocalStorage();
-
-        axios.get("http://localhost:4000/api/albums/bought", { params: { user: user.username } }).then((res) => {
+        axios.get("http://localhost:4000/api/albums/bought", { params: { user: username } }).then((res) => {
             setBought(res.data);
         });
-      }, []);
+      }, [username]);
 
       useEffect(() => {
-        const user = getUserFromLocalStorage();
-
-        axios.get("http://localhost:4000/api/albums/wishlist", { params: { user: user.username } }).then((res) => {
+        axios.get("http://localhost:4000/api/albums/wishlist", { params: { user: username } }).then((res) => {
             setWishlist(res.data);
         });
-      }, []);
+      }, [username]);
 
     return(
 

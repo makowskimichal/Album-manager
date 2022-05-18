@@ -7,6 +7,11 @@
   pointer-events: none;
 }
 
+@font-face {
+  font-family: Virginia;
+  src: url(./fonts/Virginia-6nzY.ttf);
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -47,3 +52,8 @@
   transform: 'translate(-40%, -10%)';
 }
 
+.navbar {
+  font-family:'Gill Sans';
+  font-size: 50%;
+  text-decoration: none;
+}
