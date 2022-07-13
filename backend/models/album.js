@@ -1,94 +1,94 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const albumSchema = new mongoose.Schema({
     artistName: {
         type: String,
         minlength: 1,
         maxlength: 250,
-        required: true
+        required: true,
     },
     artistId: {
         type: String,
         minlength: 1,
         maxlength: 250,
-        required: true 
+        required: true,
     },
     albumId: {
         type: String,
         minlength: 1,
         maxlength: 250,
-        required: true 
-    } ,
-    link:  {
+        required: true,
+    },
+    link: {
         type: String,
         minlength: 1,
         maxlength: 250,
-        required: true 
+        required: true,
     },
     imageUrl: {
         type: String,
         minlength: 1,
         maxlength: 250,
-        required: true
+        required: true,
     },
     imageUrlBig: {
         type: String,
         minlength: 1,
         maxlength: 250,
-        required: true
+        required: true,
     },
     albumName: {
         type: String,
         minlength: 1,
         maxlength: 250,
-        required: true
+        required: true,
     },
     tracksNumber: {
         type: Number,
         required: true,
-        min: 0
+        min: 0,
     },
     releaseDate: {
         type: Date,
         required: true,
-        default: Date.now()
+        default: Date.now(),
     },
     isFavorite: {
         type: Boolean,
-        default: false
+        default: false,
     },
     isBought: {
         type: Boolean,
-        default: false
+        default: false,
     },
     isWishlist: {
         type: Boolean,
-        default: false
+        default: false,
     },
     boughtMedium: {
         type: [String],
         required: false,
         enum: ['cd', 'vinyl'],
         trim: true,
-        lowercase: true
+        lowercase: true,
     },
     lastUpdated: {
         type: Date,
-        default: Date.now()
+        default: Date.now(),
     },
     albumBought: {
         type: Date,
-        required: false
+        required: false,
     },
     username: {
         type: String,
         minlength: 1,
         maxlength: 250,
-        required: false
-    }
-});
+        required: false,
+    },
+})
 
-const Album = mongoose.model('Album', albumSchema);
+const Album = mongoose.model('Album', albumSchema)
 
-exports.Album = Album;
-exports.albumSchema = albumSchema;
+exports.Album = Album
+exports.albumSchema = albumSchema
