@@ -8,7 +8,7 @@ import Frontpage from './components/Frontpage';
 import PurchaseHistory from './components/PurchaseHistory';
 import AlbumInfo from './components/AlbumInfo';
 import UserInfo from './components/UserInfo';
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Recommendations from './components/Recommendations';
@@ -28,28 +28,28 @@ function App() {
   }
 
   return (
-    <div className='App' style = {{height:"100vh"}}>
+    <div className="App" style={{ height: '100vh' }}>
       <AlertProvider timeouts={{ warning: 2000, success: 1000 }}>
         <Router history={history}>
           <div className="App">
-            {history.location.pathname !== "/login" && <Nav />}
+            {history.location.pathname !== '/login' && <Nav />}
             {user && (
-              <div style={{
-                display: 'flex',
-                justifyContent: 'right',
-                backgroundColor: '#a0aecd',
-                marginRight: '2%'
-              }}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'right',
+                  backgroundColor: '#a0aecd',
+                  marginRight: '2%'
+                }}>
                 <button
-                    className="button"
-                    onClick={() => {
-                        localStorage.removeItem('user');
-                        window.location.reload(true);
-                    }}
-                >
-                    Logout
+                  className="button"
+                  onClick={() => {
+                    localStorage.removeItem('user');
+                    window.location.reload(true);
+                  }}>
+                  Logout
                 </button>
-                </div>
+              </div>
             )}
             <Routes>
               <Route path="/login" element={<Authentication />} />
@@ -67,7 +67,6 @@ function App() {
         </Router>
       </AlertProvider>
     </div>
-
   );
 }
 
