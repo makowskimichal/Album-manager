@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: #a0aecd;
 }
 
 .App-logo {
@@ -8,8 +9,8 @@
 }
 
 @font-face {
-  font-family: Virginia;
-  src: url(./fonts/Virginia-6nzY.ttf);
+  font-family: Sora;
+  src: url(./fonts/Sora-SemiBold.ttf);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -52,8 +53,20 @@
   transform: 'translate(-40%, -10%)';
 }
 
-.navbar {
-  font-family:'Gill Sans';
-  font-size: 50%;
+.button {
+  background-color: #000; /* Green */
+  border: none;
+  color: white;
+  padding: 11px 15px;
+  text-align: center;
   text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+}
+
+.cover-art {
+  border: #23272a 5px solid;
+  width: 200;
+  height: 200;
+  cursor: pointer;
 }

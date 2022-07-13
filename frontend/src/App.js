@@ -5,6 +5,7 @@ import Favorites from './components/Favorites';
 import Wishlist from './components/Wishlist';
 import Bought from './components/Bought';
 import Frontpage from './components/Frontpage';
+import PurchaseHistory from './components/PurchaseHistory';
 import AlbumInfo from './components/AlbumInfo';
 import UserInfo from './components/UserInfo';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
@@ -27,16 +28,20 @@ function App() {
   }
 
   return (
-    <div className='App'>
+    <div className='App' style = {{height:"100vh"}}>
       <AlertProvider timeouts={{ warning: 2000, success: 1000 }}>
         <Router history={history}>
           <div className="App">
             {history.location.pathname !== "/login" && <Nav />}
             {user && (
-              <div  style={{float: 'right'}}>
-                Welcome back {user.username}!
+              <div style={{
+                display: 'flex',
+                justifyContent: 'right',
+                backgroundColor: '#a0aecd',
+                marginRight: '2%'
+              }}>
                 <button
-                    className="btn btn-primary"
+                    className="button"
                     onClick={() => {
                         localStorage.removeItem('user');
                         window.location.reload(true);
@@ -44,7 +49,7 @@ function App() {
                 >
                     Logout
                 </button>
-              </div>
+                </div>
             )}
             <Routes>
               <Route path="/login" element={<Authentication />} />
@@ -55,6 +60,7 @@ function App() {
               <Route path="/recommend" element={<Recommendations />} />
               <Route path="/album/:albumId" element={<AlbumInfo />} />
               <Route path="/user/:username" element={<UserInfo />} />
+              <Route path="/purchased" element={<PurchaseHistory />} />
               <Route path="/" element={<Frontpage />} />
             </Routes>
           </div>

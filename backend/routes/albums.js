@@ -269,7 +269,7 @@ router.get('/recommend', async(req, res) => {
           new Album({
             artistName: item.album.artists[0].name,
             artistId: item.album.artists[0].id,
-            albumId: item.id,
+            albumId: item.album.id,
             imageUrl: item.album.images[2].url,
             albumName: item.album.name,
             tracksNumber: item.album.total_tracks,
@@ -313,5 +313,40 @@ router.get('/info/:albumId', async(req, res) => {
       console.log(err)
     });
   });
+
+  router.get('/bought/search', async(req, res) => {
+    let name = req.query.name;
+    const albums = await Album.find({ isBought: true, $or: [
+      {"artistName": `${name}`},
+      {"albumName": `${name}`}
+    ] });
+    return res.send(albums);
+
+  })
+
+  router.get('/favorites/search', async(req, res) => {
+    let name = req.query.name;
+    const albums = await Album.find({ isFavorite: true, $or: [
+      {"artistName": `${name}`},
+      {"albumName": `${name}`}
+    ] });
+    return res.send(albums);
+
+  })
+
+  router.get('/wishlist/search', async(req, res) => {
+    let name = req.query.name;
+    const albums = await Album.find({ isWishlist: true, $or: [
+      {"artistName": `${name}`},
+      {"albumName": `${name}`}
+    ] });
+    return res.send(albums);
+
+  })
+
+  router.get('/bought/history', async (req, res) => {
+      const albums = await Album.find({ isBought: true, username: req.query.user }).sort({albumBought: -1});
+      return res.send(albums);
+  })
 
 module.exports = router;

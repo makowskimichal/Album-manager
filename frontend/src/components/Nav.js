@@ -8,18 +8,18 @@ function Nav() {
     <div>
       <nav
         style={{
-          borderBottom: "solid 1px",
-          paddingBottom: "1rem"
+          backgroundColor: "#a0aecd"
         }}
       >
-        <Link to='/' className='navbar'>
+        <Link to='/' style={{ fontSize: "180%", textDecoration: "none", fontFamily: "Sora", margin: 10, color: "#000000" }}>
           FRONTPAGE
         </Link>
-        <Link to='/search' className='navbar'>SEARCH</Link>
-        <Link to='/favorites' className='navbar'>FAVORITES</Link>
-        <Link to='/bought' className='navbar'>BOUGHT</Link>
-        <Link to='/wishlist' style={{ fontSize: "200%", textDecoration: "none", fontFamily: "Gill Sans", margin: 10 }}>WISHLIST</Link>
-        <Link to='/recommend' style={{ fontSize: "200%", textDecoration: "none", fontFamily: "Gill Sans", margin: 10 }}>RECOMMENDED</Link>
+        <Link to='/search' style={{ fontSize: "180%", textDecoration: "none", fontFamily: "Sora", margin: 10, color: "#000000" }}>SEARCH</Link>
+        <Link to='/favorites' style={{ fontSize: "180%", textDecoration: "none", fontFamily: "Sora", margin: 10, color: "#000000" }}>FAVORITES</Link>
+        <Link to='/bought' style={{ fontSize: "180%", textDecoration: "none", fontFamily: "Sora", margin: 10, color: "#000000" }}>BOUGHT</Link>
+        <Link to='/wishlist' style={{ fontSize: "180%", textDecoration: "none", fontFamily: "Sora", margin: 10, color: "#000000" }}>WISHLIST</Link>
+        <Link to='/purchased' style={{ fontSize: "180%", textDecoration: "none", fontFamily: "Sora", margin: 10, color: "#000000" }}>PURCHASE HISTORY</Link>
+        <Link to='/recommend' style={{ fontSize: "180%", textDecoration: "none", fontFamily: "Sora", margin: 10, color: "#000000" }}>RECOMMENDED</Link>
       </nav>
     </div>
     );

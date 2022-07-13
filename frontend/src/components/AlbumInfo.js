@@ -97,23 +97,24 @@ function AlbumInfo() {
       }, [alert, alertMessage])
 
     return(
-        <div>
+        <div className='container-fluid'>
             <img src={album.imageUrlBig} alt="cover" width={200} height={200}></img>
-            <h1>{album.artistName} - {album.albumName}</h1>
-            <h2>{album.releaseDate}, {album.tracksNumber} tracks</h2>
-            <p>
+            <h1 style={{fontFamily: "Sora", color: "#000000"}}>{album.artistName} - {album.albumName}</h1>
+            <h2 style={{fontFamily: "Sora", color: "#000000"}}>{album.releaseDate}, {album.tracksNumber} tracks</h2>
+            <p style={{fontFamily: "Sora", color: "#000000"}}>
                 {tracks.map((track, index) => (
                     <div>
                         {index + 1}. {track}
                     </div>
                 ))}
             </p>
-            <a href={album.link}>Listen on Spotify</a>
-            <div className='col-2'>
-            <button onClick={() => favorites(album)}>Add to favorites</button>
+            <a style={{fontFamily: "Sora", color: "#000000"}} href={album.link}>Listen on Spotify</a>
+            <div>
+            <button className="button" onClick={() => favorites(album)}>Add to favorites</button>
             </div>
-            <div className='col-2'>
+            <div>
             <button
+              className="button"
               onClick={() => {
                 setIsOpen(true);
               }}
@@ -121,8 +122,8 @@ function AlbumInfo() {
               Add to bought
             </button>
             </div>
-            <div className='col-2'>
-            <button onClick={() => wishlist(album)}>Add to wishlist</button>
+            <div>
+            <button className="button" onClick={() => wishlist(album)}>Add to wishlist</button>
             </div>
             <AlbumModal album={album} />
         </div>

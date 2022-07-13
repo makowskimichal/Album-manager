@@ -36,28 +36,28 @@ function Frontpage() {
 
     return(
 
-        <section>
-            <h2>Favorite albums</h2>
+        <section style={{backgroundColor: "#a0aecd"}}>
+            <h2 style={{fontFamily: "Sora", color: "#000000", paddingBottom: "10px"}}>Favorite albums</h2>
             <div>
             <Carousel cols={5} rows={1} gap={0} loop>
                 {favorite.map(favorite =>(
-                    <Carousel.Item> <img src={favorite.imageUrlBig} alt="cover" width={200} height={200} style={{cursor: 'pointer'}} key={favorite.albumId} onClick={()=> navigate(`/album/${favorite.albumId}`)}/></Carousel.Item>
+                    <Carousel.Item> <img src={favorite.imageUrlBig} alt="cover" width={200} height={200} style={{cursor: 'pointer', border: "#8a9cc1 20px solid"}} key={favorite.albumId} onClick={()=> navigate(`/album/${favorite.albumId}`)}/></Carousel.Item>
                 ))}
             </Carousel>
             </div>
-            <h2>Bought albums</h2>
+            <h2 style={{fontFamily: "Sora", color: "#000000", paddingBottom: "10px", paddingTop: "10px"}}>Bought albums</h2>
             <div>
             <Carousel cols={5} rows={1} gap={0} loop>
                 {bought.map(bought =>(
-                    <Carousel.Item> <img src={bought.imageUrlBig} alt="cover" width={200} height={200} style={{cursor: 'pointer'}} key={bought.albumId} onClick={()=> navigate(`/album/${bought.albumId}`)}/></Carousel.Item>
+                    <Carousel.Item> <img src={bought.imageUrlBig} alt="cover" width={200} height={200} style={{cursor: 'pointer', border: "#8a9cc1 20px solid"}} key={bought.albumId} onClick={()=> navigate(`/album/${bought.albumId}`)}/></Carousel.Item>
                 ))}
             </Carousel>
             </div>
-            <h2>Wishlist</h2>
+            <h2 style={{fontFamily: "Sora", color: "#000000", paddingBottom: "10px", paddingTop: "10px"}}>Wishlist</h2>
             <div>
             <Carousel cols={5} rows={1} gap={0} loop>
                 {wishlist.map(wishlist =>(
-                    <Carousel.Item> <img src={wishlist.imageUrlBig} alt="cover" width={200} height={200} style={{cursor: 'pointer'}} key={wishlist.albumId} onClick={()=> navigate(`/album/${wishlist.albumId}`)}/></Carousel.Item>
+                    <Carousel.Item> <img src={wishlist.imageUrlBig} alt="cover" width={200} height={200} style={{cursor: 'pointer', border: "#8a9cc1 20px solid"}} key={wishlist.albumId} onClick={()=> navigate(`/album/${wishlist.albumId}`)}/></Carousel.Item>
                 ))}
             </Carousel>
             </div>

@@ -92,37 +92,48 @@ function Search() {
   }, [alert, alertMessage])
 
   useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
     if(!search) return setSearchResult([]);
     axios.get("http://localhost:4000/api/albums/search", { params: { name: search } }).then((res) => {
     setSearchResult(res.data)
     })
+  }, 500)
+
+  return () => clearTimeout(delayDebounceFn)
   }, [search]);
 
   return(
     <Container className="container-fluid py-2">
       <Form.Control
         type="search"
-        placeholder="Search Songs/Artists"
+        placeholder="Search Albums and Artists"
         value={search}
         onChange={e => setSearch(e.target.value)}
       />
-      <div className="container-fluid m-3">  
+      <div className="container-fluid m-3" style={{fontFamily: "Sora", color: "#000000"}}>  
         {searchResult.map(result => (
           <div className="row" style={{padding: "1.85%"}} key={result.imageUrl}> 
-            <div className="col-2">
+            <div className="col-2" style={{margin: 'auto'}}>
               <img className="pr-10" key={result.imageUrl} src={result.imageUrl} alt="" style={{cursor: 'pointer'}} onClick={()=> navigate(`/album/${result.albumId}`)}/>
             </div>
-            <div className='col'>
+            <div className='col' style={{margin: 'auto'}}>
             {result.albumName}
             </div>
-            <div className='col'>
+            <div className='col' style={{margin: 'auto'}}>
             {result.artistName} 
             </div>
-            <div className='col-2'>
-            <button onClick={() => favorites(result)}>Add to favorites</button>
+            <div className='col' style={{margin: 'auto'}}>
+            {result.tracksNumber}
             </div>
-            <div className='col-2'>
+            <div className='col' style={{margin: 'auto'}}>
+            {result.releaseDate.substring(0,4)}
+            </div>
+            <div className='col-2' style={{margin: 'auto'}}>
+            <button className='button' onClick={() => favorites(result)}>Add to favorites</button>
+            </div>
+            <div className='col-2' style={{margin: 'auto'}}>
             <button
+              className='button'
               onClick={() => {
                 setIsOpen(true);
                 setActiveAlbum(result);
@@ -131,10 +142,10 @@ function Search() {
               Add to bought
             </button>
             </div>
-            <div className='col-2'>
-            <button onClick={() => wishlist(result)}>Add to wishlist</button>
+            <div className='col-2' style={{margin: 'auto'}}>
+            <button className='button' onClick={() => wishlist(result)}>Add to wishlist</button>
             </div>
-          </div>
+        </div>
         ))}
         {activeAlbum && <AlbumModal result={activeAlbum} />}
       </div>

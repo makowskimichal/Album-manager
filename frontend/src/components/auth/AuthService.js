@@ -27,7 +27,6 @@ export const getUserFromLocalStorage = () => {
     const rawUser = localStorage.getItem('user');
     if (!rawUser) return null;
     const user = Object.assign(new User(), JSON.parse(rawUser));
-    console.log('logged in user', user);
     return user;
 };
 

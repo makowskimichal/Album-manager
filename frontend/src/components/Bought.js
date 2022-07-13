@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Form } from "react-bootstrap";
 import axios from 'axios';
 import Select from 'react-select';
 import Modal from 'react-modal';
@@ -25,6 +26,8 @@ const customStyles = {
 };
 
 function Bought() {
+  const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
   const [album, setAlbum] = useState([]);
   const [selectedOption, setSelectedOption] = useState("artistName-ascending");
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -39,6 +42,17 @@ function Bought() {
         setAlbum(res.data);
     });
   }, [selectedOption, albumDeleted]);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+    if(!search) return setSearchResult([]);
+    axios.get("http://localhost:4000/api/albums/bought/search", { params: { name: search } }).then((res) => {
+    setSearchResult(res.data)
+    })
+  }, 500)
+
+  return () => clearTimeout(delayDebounceFn)
+  }, [search]);
 
   const deleteBought = (data) => {
     const user = getUserFromLocalStorage();
@@ -64,31 +78,124 @@ function Bought() {
 
   return(
     <section>
-      <h1>Bought albums</h1>
-      <div className='container-fluid align-middle mt-3 mb-1' style={{width: "80%"}}>
+      <h1 style={{fontFamily: "Sora", color: "#000000"}}>Bought albums</h1>
+      <div className='container-fluid' style={{width: "80%"}}>
         <Select
             defaultValue={selectedOption}
             onChange={setSelectedOption}
             options={options}
         />
       </div>
+
+      <div className='container-fluid' style={{width: "80%"}}>
+      <Form.Control
+        type="search"
+        placeholder="Search Albums and Artists"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+      />
+      </div>
       <div className="container-fluid">
-        {album.map(album => (
-          <div className="row" style={{padding: "1.85%"}} key={album.albumId}>
+        <div className='row' style={{padding: "1.85%", fontFamily: "Sora", color: "#000000"}} key={album.albumId}>
+          <div className='col-2' style={{margin: 'auto'}}>
+            Cover
+          </div>
+          <div className='col' style={{margin: 'auto'}}>
+          Artist
+          </div>
+          <div className='col' style={{margin: 'auto'}}>
+          Album
+          </div>
+          <div className='col' style={{margin: 'auto'}}>
+          Tracks
+          </div>
+          <div className='col' style={{margin: 'auto'}}>
+          Release
+          </div>
+          <div className="col-2" style={{margin: 'auto'}}>
+          Medium
+          </div>
+          <div className='col-2' style={{margin: 'auto'}}>
+          </div>
+        </div>
+      </div>
+
+      <div className="container-fluid">
+        {searchResult.length === 0 &&
+          <div>
+          {album.map(album => (
+          <div className="row" style={{padding: "1.85%", fontFamily: "Sora", color: "#000000"}} key={album.albumId}>
             <div className="col-2">
               <img src={album.imageUrl} alt="cover" style={{cursor: 'pointer'}} onClick={()=> navigate(`/album/${album.albumId}`)}/>
             </div>
-            <div className="col">
+            <div className="col" style={{margin: 'auto'}}>
               {album.artistName}
             </div>
-            <div className="col">
+            <div className="col" style={{margin: 'auto'}}>
             {album.albumName}
             </div>
-            <div className="col-2">
-              {album.boughtMedium}
+            <div className='col' style={{margin: 'auto'}}>
+          {album.tracksNumber}
+          </div>
+          <div className='col' style={{margin: 'auto'}}>
+          {album.releaseDate.substring(0,4)}
+          </div>
+          <div className="col-2" style={{margin: 'auto'}}>
+              {album.boughtMedium[0] && 
+                <div>{album.boughtMedium[0]}</div>
+              }
+              {album.boughtMedium[1] && 
+                <div>{album.boughtMedium[1]}</div>
+              }
             </div>
+            <div className="col-2" style={{margin: 'auto'}}>
+              <button 
+                className="button"
+                onClick={() => {
+                  setIsOpen(true);
+                  setActiveAlbum(album);
+                }}
+              >
+                Delete from bought
+              </button>
+            </div>
+          </div>
+        ))}
+          </div>
+        }
+
+        {activeAlbum && <AlbumModal album={activeAlbum} />}
+      </div>
+
+      <div className="container-fluid">
+        {searchResult.map(album => (
+          <div className="row" style={{padding: "1.85%", fontFamily: "Sora", color: "#000000"}} key={album.albumId}>
             <div className="col-2">
-              <button
+              <img src={album.imageUrl} alt="cover" style={{cursor: 'pointer'}} onClick={()=> navigate(`/album/${album.albumId}`)}/>
+            </div>
+            <div className="col" style={{margin: 'auto'}}>
+              {album.artistName}
+            </div>
+            <div className="col" style={{margin: 'auto'}}>
+            {album.albumName}
+            </div>
+            <div className='col' style={{margin: 'auto'}}>
+          {album.tracksNumber}
+          </div>
+          <div className='col' style={{margin: 'auto'}}>
+          {album.releaseDate.substring(0,4)}
+          </div>
+          <div className="col-2" style={{margin: 'auto'}}>
+              {album.boughtMedium[0] && 
+                <div>{album.boughtMedium[0]}</div>
+              }
+              {album.boughtMedium[1] && 
+                <div>{album.boughtMedium[1]}</div>
+              }
+            </div>
+            <div className="col-2" style={{margin: 'auto'}}>
+              <button 
+                className="button"
                 onClick={() => {
                   setIsOpen(true);
                   setActiveAlbum(album);
