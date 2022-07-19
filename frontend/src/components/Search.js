@@ -26,8 +26,10 @@ const customStyles = {
 };
 
 function Search() {
-  const [search, setSearch] = useState('');
-  const [searchResult, setSearchResult] = useState([]);
+  const [albumSearch, setAlbumSearch] = useState('');
+  const [albumSearchResult, setAlbumSearchResult] = useState([]);
+  const [userSearch, setUserSearch] = useState('');
+  const [userSearchResult, setUserSearchResult] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [activeAlbum, setActiveAlbum] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState([boughtOptions[0], boughtOptions[1]]);
@@ -100,27 +102,41 @@ function Search() {
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      if (!search) return setSearchResult([]);
+      if (!albumSearch) return setAlbumSearchResult([]);
       axios
-        .get('http://localhost:4000/api/albums/search', { params: { name: search } })
+        .get('http://localhost:4000/api/albums/search', { params: { name: albumSearch } })
         .then((res) => {
-          setSearchResult(res.data);
+          setAlbumSearchResult(res.data);
         });
     }, 500);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [search]);
+  }, [albumSearch]);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (!userSearch) return setUserSearchResult([]);
+      axios
+        .get('http://localhost:4000/api/users/search', { params: { name: userSearch } })
+        .then((res) => {
+          setUserSearchResult(res.data);
+        });
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [userSearch]);
 
   return (
-    <Container className="container-fluid py-2">
+    <div className="row">
+    <Container className="container-fluid py-2 col-10" style={{ marginLeft: 10 }}>
       <Form.Control
         type="search"
         placeholder="Search Albums and Artists"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        value={albumSearch}
+        onChange={(e) => setAlbumSearch(e.target.value)}
       />
       <div className="container-fluid m-3" style={{ fontFamily: 'Sora', color: '#000000' }}>
-        {searchResult.map((result) => (
+        {albumSearchResult.map((result) => (
           <div className="row" style={{ padding: '1.85%' }} key={result.imageUrl}>
             <div className="col-2" style={{ margin: 'auto' }}>
               <img
@@ -169,6 +185,25 @@ function Search() {
         {activeAlbum && <AlbumModal result={activeAlbum} />}
       </div>
     </Container>
+    <Container className="container-fluid py-2 col" style={{ marginRight: 10 }}>
+      <Form.Control
+        type="search"
+        placeholder="Search Users"
+        value={userSearch}
+        onChange={(e) => setUserSearch(e.target.value)}
+        />
+        <div className="container-fluid m-3" style={{ fontFamily: 'Sora', color: '#000000' }}>
+        {userSearchResult.map((result) => (
+          <div className="row" style={{ padding: '1.85%' }} key={result.username}>
+            <div className="col" style={{ margin: 'auto', cursor: 'pointer' }} onClick={() => navigate(`/user/${result.username}`)}>
+              {result.username}
+            </div>
+          </div>
+        ))}
+        </div>
+    </Container>
+    </div>
+  
   );
 }
 

@@ -4,12 +4,14 @@ import '../App.css';
 
 function Nav() {
   return (
-    <div>
+    <div className="container-fluid">
       <nav
+        className="row"
         style={{
           backgroundColor: '#a0aecd'
         }}>
         <Link
+          className='col'
           to="/"
           style={{
             fontSize: '180%',
@@ -21,6 +23,7 @@ function Nav() {
           FRONTPAGE
         </Link>
         <Link
+          className='col'
           to="/search"
           style={{
             fontSize: '180%',
@@ -32,6 +35,7 @@ function Nav() {
           SEARCH
         </Link>
         <Link
+        className='col'
           to="/favorites"
           style={{
             fontSize: '180%',
@@ -43,6 +47,7 @@ function Nav() {
           FAVORITES
         </Link>
         <Link
+        className='col'
           to="/bought"
           style={{
             fontSize: '180%',
@@ -54,6 +59,7 @@ function Nav() {
           BOUGHT
         </Link>
         <Link
+        className='col'
           to="/wishlist"
           style={{
             fontSize: '180%',
@@ -65,6 +71,7 @@ function Nav() {
           WISHLIST
         </Link>
         <Link
+        className='col'
           to="/purchased"
           style={{
             fontSize: '180%',
@@ -73,9 +80,10 @@ function Nav() {
             margin: 10,
             color: '#000000'
           }}>
-          PURCHASE HISTORY
+          HISTORY
         </Link>
         <Link
+        className='col'
           to="/recommend"
           style={{
             fontSize: '180%',
