@@ -3,6 +3,7 @@ import axios from 'axios';
 import Carousel from 'react-grid-carousel';
 import { useNavigate } from 'react-router-dom';
 import { getUserFromLocalStorage } from '../components/auth/AuthService';
+import '../App.css';
 
 function Frontpage() {
   const [favorite, setFavorite] = useState([]);
@@ -41,8 +42,8 @@ function Frontpage() {
   }, []);
 
   return (
-    <section style={{ backgroundColor: '#a0aecd' }}>
-      <h2 style={{ fontFamily: 'Sora', color: '#000000', paddingBottom: '10px' }}>
+    <section style={{ backgroundColor: '#121212' }}>
+      <h2 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
         Favorite albums
       </h2>
       <div>
@@ -53,9 +54,9 @@ function Frontpage() {
               <img
                 src={favorite.imageUrlBig}
                 alt="cover"
-                width={200}
-                height={200}
-                style={{ cursor: 'pointer', border: '#8a9cc1 20px solid' }}
+                width={250}
+                height={250}
+                className="box"
                 key={favorite.albumId}
                 onClick={() => navigate(`/album/${favorite.albumId}`)}
               />
@@ -64,7 +65,7 @@ function Frontpage() {
         </Carousel>
       </div>
       <h2
-        style={{ fontFamily: 'Sora', color: '#000000', paddingBottom: '10px', paddingTop: '10px' }}>
+        style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px', paddingTop: '10px' }}>
         Bought albums
       </h2>
       <div>
@@ -75,9 +76,9 @@ function Frontpage() {
               <img
                 src={bought.imageUrlBig}
                 alt="cover"
-                width={200}
-                height={200}
-                style={{ cursor: 'pointer', border: '#8a9cc1 20px solid' }}
+                width={250}
+                height={250}
+                className="box"
                 key={bought.albumId}
                 onClick={() => navigate(`/album/${bought.albumId}`)}
               />
@@ -86,7 +87,7 @@ function Frontpage() {
         </Carousel>
       </div>
       <h2
-        style={{ fontFamily: 'Sora', color: '#000000', paddingBottom: '10px', paddingTop: '10px' }}>
+        style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px', paddingTop: '10px' }}>
         Wishlist
       </h2>
       <div>
@@ -97,9 +98,9 @@ function Frontpage() {
               <img
                 src={wishlist.imageUrlBig}
                 alt="cover"
-                width={200}
-                height={200}
-                style={{ cursor: 'pointer', border: '#8a9cc1 20px solid' }}
+                width={250}
+                height={250}
+                className="box"
                 key={wishlist.albumId}
                 onClick={() => navigate(`/album/${wishlist.albumId}`)}
               />

@@ -6,6 +6,10 @@ import Modal from 'react-modal';
 import { useAlert } from 'react-alert';
 import { useNavigate } from 'react-router-dom';
 import { getUserFromLocalStorage } from '../components/auth/AuthService';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AlbumIcon from '@mui/icons-material/Album';
+import PersonIcon from '@mui/icons-material/Person';
 
 const boughtOptions = [
   { value: 'cd', label: 'CD' },
@@ -135,9 +139,9 @@ function Search() {
         value={albumSearch}
         onChange={(e) => setAlbumSearch(e.target.value)}
       />
-      <div className="container-fluid m-3" style={{ fontFamily: 'Sora', color: '#000000' }}>
+      <div className="container-fluid m-3" style={{ fontFamily: 'Sora', color: '#acacac' }}>
         {albumSearchResult.map((result) => (
-          <div className="row" style={{ padding: '1.85%' }} key={result.imageUrl}>
+          <div className="row albumList" style={{ padding: '1.85%' }} key={result.imageUrl}>
             <div className="col-2" style={{ margin: 'auto' }}>
               <img
                 className="pr-10"
@@ -160,25 +164,18 @@ function Search() {
             <div className="col" style={{ margin: 'auto' }}>
               {result.releaseDate.substring(0, 4)}
             </div>
-            <div className="col-2" style={{ margin: 'auto' }}>
-              <button className="button" onClick={() => favorites(result)}>
-                Add to favorites
-              </button>
+            <div className="col-1" style={{ margin: 'auto' }}>
+            <FavoriteIcon className='button' onClick={() => favorites(result)} />
             </div>
-            <div className="col-2" style={{ margin: 'auto' }}>
-              <button
-                className="button"
+            <div className="col-1" style={{ margin: 'auto' }}>
+              <AlbumIcon className='button' 
                 onClick={() => {
                   setIsOpen(true);
                   setActiveAlbum(result);
-                }}>
-                Add to bought
-              </button>
+                }} />
             </div>
-            <div className="col-2" style={{ margin: 'auto' }}>
-              <button className="button" onClick={() => wishlist(result)}>
-                Add to wishlist
-              </button>
+            <div className="col-1" style={{ margin: 'auto' }}>
+              <ShoppingCartIcon className='button' onClick={() => wishlist(result)}/>
             </div>
           </div>
         ))}
@@ -192,10 +189,11 @@ function Search() {
         value={userSearch}
         onChange={(e) => setUserSearch(e.target.value)}
         />
-        <div className="container-fluid m-3" style={{ fontFamily: 'Sora', color: '#000000' }}>
+        <div className="container-fluid m-3" style={{ fontFamily: 'Sora', color: '#acacac' }}>
         {userSearchResult.map((result) => (
           <div className="row" style={{ padding: '1.85%' }} key={result.username}>
             <div className="col" style={{ margin: 'auto', cursor: 'pointer' }} onClick={() => navigate(`/user/${result.username}`)}>
+            <PersonIcon />
               {result.username}
             </div>
           </div>

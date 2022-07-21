@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: #a0aecd;
+  background-color: #121212;
 }
 
 .App-logo {
@@ -53,20 +53,48 @@
   transform: 'translate(-40%, -10%)';
 }
 
-.button {
-  background-color: #000; /* Green */
-  border: none;
-  color: white;
-  padding: 11px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 13px;
+.box {
+  cursor: pointer;
+  border: #171717 20px solid;
 }
 
-.cover-art {
-  border: #23272a 5px solid;
-  width: 200;
-  height: 200;
+.box:hover {
+  border-color: #272727;
+}
+
+.text {
+  color: #acacac;
+  font-family: 'Sora'
+}
+
+.text:hover {
+  color: #fff
+}
+
+.albumList {
+  font-family: 'Sora';
+  color: #acacac;
   cursor: pointer;
+}
+
+.albumList:hover {
+  background-color: #181818;
+}
+
+.logout {
+  cursor: pointer;
+  color: #acacac;
+}
+
+.logout:hover {
+  color: #fff;
+}
+
+.button {
+  color: #acacac;
+  cursor: pointer;
+}
+
+.button:hover {
+  color: #fff
 }

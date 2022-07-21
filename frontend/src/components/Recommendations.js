@@ -19,12 +19,12 @@ function Recommendations() {
 
   return (
     <div className="container-fluid">
-      <h1 style={{ fontFamily: 'Sora', color: '#000000' }}>Recommended albums</h1>
+      <h1 style={{ fontFamily: 'Sora', color: '#acacac' }}>Recommended albums</h1>
 
       <div className="container-fluid">
         <div
           className="row"
-          style={{ padding: '1.85%', fontFamily: 'Sora', color: '#000000' }}
+          style={{ padding: '1.85%', fontFamily: 'Sora', color: '#acacac' }}
           key={album.albumId}>
           <div className="col-2" style={{ margin: 'auto' }}>
             Cover
@@ -47,8 +47,8 @@ function Recommendations() {
       <div className="container-fluid">
         {album.map((album) => (
           <div
-            className="row"
-            style={{ padding: '1.85%', fontFamily: 'Sora', color: '#000000' }}
+            className="row albumList"
+            style={{ padding: '1.85%', fontFamily: 'Sora', color: '#acacac' }}
             key={album.albumId}>
             <div className="col-2" style={{ margin: 'auto' }}>
               <img
@@ -58,16 +58,16 @@ function Recommendations() {
                 onClick={() => navigate(`/album/${album.albumId}`)}
               />
             </div>
-            <div className="col" style={{ margin: 'auto' }}>
+            <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
               {album.artistName}
             </div>
-            <div className="col" style={{ margin: 'auto' }}>
+            <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
               {album.albumName}
             </div>
-            <div className="col" style={{ margin: 'auto' }}>
+            <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
               {album.tracksNumber}
             </div>
-            <div className="col" style={{ margin: 'auto' }}>
+            <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
               {album.releaseDate.substring(0, 4)}
             </div>
           </div>

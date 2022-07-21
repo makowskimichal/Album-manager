@@ -106,20 +106,20 @@ function AlbumInfo() {
   return (
     <div className="container-fluid">
       <img src={album.imageUrlBig} alt="cover" width={200} height={200}></img>
-      <h1 style={{ fontFamily: 'Sora', color: '#000000' }}>
+      <h1 style={{ fontFamily: 'Sora', color: '#acacac' }}>
         {album.artistName} - {album.albumName}
       </h1>
-      <h2 style={{ fontFamily: 'Sora', color: '#000000' }}>
+      <h2 style={{ fontFamily: 'Sora', color: '#acacac' }}>
         {album.releaseDate}, {album.tracksNumber} tracks
       </h2>
-      <p style={{ fontFamily: 'Sora', color: '#000000' }}>
+      <p style={{ fontFamily: 'Sora', color: '#acacac' }}>
         {tracks.map((track, index) => (
           <div>
             {index + 1}. {track}
           </div>
         ))}
       </p>
-      <a style={{ fontFamily: 'Sora', color: '#000000' }} href={album.link}>
+      <a style={{ fontFamily: 'Sora', color: '#acacac' }} href={album.link}>
         Listen on Spotify
       </a>
       <div>

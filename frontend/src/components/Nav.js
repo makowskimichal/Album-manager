@@ -8,89 +8,75 @@ function Nav() {
       <nav
         className="row"
         style={{
-          backgroundColor: '#a0aecd'
+          backgroundColor: '#000'
         }}>
         <Link
-          className='col'
+          className='col text'
           to="/"
           style={{
             fontSize: '180%',
             textDecoration: 'none',
-            fontFamily: 'Sora',
-            margin: 10,
-            color: '#000000'
+            margin: 10
           }}>
           FRONTPAGE
         </Link>
         <Link
-          className='col'
+          className='col text'
           to="/search"
           style={{
             fontSize: '180%',
             textDecoration: 'none',
-            fontFamily: 'Sora',
-            margin: 10,
-            color: '#000000'
+            margin: 10
           }}>
           SEARCH
         </Link>
         <Link
-        className='col'
+        className='col text'
           to="/favorites"
           style={{
             fontSize: '180%',
             textDecoration: 'none',
-            fontFamily: 'Sora',
             margin: 10,
-            color: '#000000'
           }}>
           FAVORITES
         </Link>
         <Link
-        className='col'
+        className='col text'
           to="/bought"
           style={{
             fontSize: '180%',
             textDecoration: 'none',
-            fontFamily: 'Sora',
-            margin: 10,
-            color: '#000000'
+            margin: 10
           }}>
           BOUGHT
         </Link>
         <Link
-        className='col'
+        className='col text'
           to="/wishlist"
           style={{
             fontSize: '180%',
             textDecoration: 'none',
-            fontFamily: 'Sora',
             margin: 10,
-            color: '#000000'
           }}>
           WISHLIST
         </Link>
         <Link
-        className='col'
+        className='col text'
           to="/purchased"
           style={{
             fontSize: '180%',
             textDecoration: 'none',
-            fontFamily: 'Sora',
-            margin: 10,
-            color: '#000000'
+            margin: 10
           }}>
           HISTORY
         </Link>
         <Link
-        className='col'
+        className='col text'
           to="/recommend"
           style={{
             fontSize: '180%',
             textDecoration: 'none',
-            fontFamily: 'Sora',
-            margin: 10,
-            color: '#000000'
+            margin: 10
           }}>
           RECOMMENDED
         </Link>

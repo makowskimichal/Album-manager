@@ -16,6 +16,7 @@ import { AlertProvider } from 'react-bootstrap-hooks-alert';
 import { createBrowserHistory } from 'history';
 import { getUserFromLocalStorage } from './components/auth/AuthService';
 import { Authentication } from './components/auth/Auth';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function App() {
   const user = getUserFromLocalStorage();
@@ -38,17 +39,16 @@ function App() {
                 style={{
                   display: 'flex',
                   justifyContent: 'right',
-                  backgroundColor: '#a0aecd',
-                  marginRight: '2%'
+                  backgroundColor: '#121212',
+                  marginRight: '2%',
+                  marginTop: '1%'
                 }}>
-                <button
-                  className="button"
+                <LogoutIcon
+                  className='logout'
                   onClick={() => {
                     localStorage.removeItem('user');
                     window.location.reload(true);
-                  }}>
-                  Logout
-                </button>
+                  }} />
               </div>
             )}
             <Routes>

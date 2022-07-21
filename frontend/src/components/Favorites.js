@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import { getUserFromLocalStorage } from '../components/auth/AuthService';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const options = [
   { value: 'artistName-ascending', label: 'Artist Name Ascending' },
@@ -89,11 +90,9 @@ function Favorites() {
 
   return (
     <section>
-      <h1 style={{ fontFamily: 'Sora', color: '#000000' }}>Favorite albums</h1>
-      <div className="container-fluid" style={{ width: '80%' }}>
-        <Select defaultValue={selectedOption} onChange={setSelectedOption} options={options} />
-      </div>
-      <div className="container-fluid" style={{ width: '80%' }}>
+      <h1 style={{ fontFamily: 'Sora', color: '#acacac' }}>Favorite albums</h1>
+      <div style={{display: 'flex'}}>
+      <div className="container-fluid" style={{ width: '20%' }}>
         <Form.Control
           type="search"
           placeholder="Search Albums and Artists"
@@ -101,11 +100,15 @@ function Favorites() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
+      <div className="container-fluid" style={{ width: '20%' }}>
+        <Select defaultValue={selectedOption} onChange={setSelectedOption} options={options} />
+      </div>
+      </div>
 
       <div className="container-fluid">
         <div
           className="row"
-          style={{ padding: '1.85%', fontFamily: 'Sora', color: '#000000' }}
+          style={{ padding: '1.85%', fontFamily: 'Sora', color: '#acacac' }}
           key={album.albumId}>
           <div className="col-2" style={{ margin: 'auto' }}>
             Cover
@@ -122,7 +125,7 @@ function Favorites() {
           <div className="col" style={{ margin: 'auto' }}>
             Release
           </div>
-          <div className="col-2" style={{ margin: 'auto' }}></div>
+          <div className="col-2" style={{ margin: 'auto' }} />
         </div>
       </div>
 
@@ -131,8 +134,8 @@ function Favorites() {
           <div>
             {album.map((album) => (
               <div
-                className="row"
-                style={{ padding: '1.85%', fontFamily: 'Sora', color: '#000000' }}
+                className="row albumList"
+                style={{ padding: '1.85%', fontFamily: 'Sora', color: '#acacac' }}
                 key={album.albumId}>
                 <div className="col-2">
                   <img
@@ -142,27 +145,25 @@ function Favorites() {
                     onClick={() => navigate(`/album/${album.albumId}`)}
                   />
                 </div>
-                <div className="col" style={{ margin: 'auto' }}>
+                <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
                   {album.artistName}
                 </div>
-                <div className="col" style={{ margin: 'auto' }}>
+                <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
                   {album.albumName}
                 </div>
-                <div className="col" style={{ margin: 'auto' }}>
+                <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
                   {album.tracksNumber}
                 </div>
-                <div className="col" style={{ margin: 'auto' }}>
+                <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
                   {album.releaseDate.substring(0, 4)}
                 </div>
                 <div className="col-2" style={{ margin: 'auto' }}>
-                  <button
-                    className="button"
+                <DeleteIcon
+                    className='button'
                     onClick={() => {
                       setIsOpen(true);
                       setActiveAlbum(album);
-                    }}>
-                    Delete from favorites
-                  </button>
+                    }} />
                 </div>
               </div>
             ))}
@@ -175,7 +176,7 @@ function Favorites() {
         {searchResult.map((album) => (
           <div
             className="row"
-            style={{ padding: '1.85%', fontFamily: 'Sora', color: '#000000' }}
+            style={{ padding: '1.85%', fontFamily: 'Sora', color: '#acacac' }}
             key={album.albumId}>
             <div className="col-2">
               <img
@@ -185,27 +186,25 @@ function Favorites() {
                 onClick={() => navigate(`/album/${album.albumId}`)}
               />
             </div>
-            <div className="col" style={{ margin: 'auto' }}>
+            <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
               {album.artistName}
             </div>
-            <div className="col" style={{ margin: 'auto' }}>
+            <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
               {album.albumName}
             </div>
-            <div className="col" style={{ margin: 'auto' }}>
+            <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
               {album.tracksNumber}
             </div>
-            <div className="col" style={{ margin: 'auto' }}>
+            <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
               {album.releaseDate.substring(0, 4)}
             </div>
             <div className="col-2" style={{ margin: 'auto' }}>
-              <button
-                className="button"
-                onClick={() => {
-                  setIsOpen(true);
-                  setActiveAlbum(album);
-                }}>
-                Delete from favorites
-              </button>
+            <DeleteIcon
+                    className='button'
+                    onClick={() => {
+                      setIsOpen(true);
+                      setActiveAlbum(album);
+                    }} />
             </div>
           </div>
         ))}

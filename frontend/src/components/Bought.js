@@ -5,6 +5,8 @@ import Select from 'react-select';
 import Modal from 'react-modal';
 import { getUserFromLocalStorage } from '../components/auth/AuthService';
 import { useNavigate } from 'react-router-dom';
+import '../App.css'
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const options = [
   { value: 'artistName-ascending', label: 'Artist Name Ascending' },
@@ -88,12 +90,9 @@ function Bought() {
 
   return (
     <section>
-      <h1 style={{ fontFamily: 'Sora', color: '#000000' }}>Bought albums</h1>
-      <div className="container-fluid" style={{ width: '80%' }}>
-        <Select defaultValue={selectedOption} onChange={setSelectedOption} options={options} />
-      </div>
-
-      <div className="container-fluid" style={{ width: '80%' }}>
+      <h1 style={{ fontFamily: 'Sora', color: '#acacac' }}>Bought albums</h1>
+      <div style={{display: 'flex'}}>
+      <div className="container-fluid" style={{ width: '20%' }}>
         <Form.Control
           type="search"
           placeholder="Search Albums and Artists"
@@ -101,10 +100,14 @@ function Bought() {
           onChange={(e) => setSearch(e.target.value)}
         />
       </div>
+      <div className="container-fluid" style={{ width: '20%' }}>
+        <Select defaultValue={selectedOption} onChange={setSelectedOption} options={options} />
+      </div>
+      </div>
       <div className="container-fluid">
         <div
           className="row"
-          style={{ padding: '1.85%', fontFamily: 'Sora', color: '#000000' }}
+          style={{ padding: '1.85%', fontFamily: 'Sora', color: '#acacac' }}
           key={album.albumId}>
           <div className="col-2" style={{ margin: 'auto' }}>
             Cover
@@ -124,7 +127,7 @@ function Bought() {
           <div className="col-2" style={{ margin: 'auto' }}>
             Medium
           </div>
-          <div className="col-2" style={{ margin: 'auto' }}></div>
+          <div className="col-2" style={{ margin: 'auto' }} />
         </div>
       </div>
 
@@ -133,42 +136,39 @@ function Bought() {
           <div>
             {album.map((album) => (
               <div
-                className="row"
-                style={{ padding: '1.85%', fontFamily: 'Sora', color: '#000000' }}
+                className="row albumList"
+                style={{ padding: '1.85%'}}
                 key={album.albumId}>
                 <div className="col-2">
                   <img
                     src={album.imageUrl}
                     alt="cover"
-                    style={{ cursor: 'pointer' }}
                     onClick={() => navigate(`/album/${album.albumId}`)}
                   />
                 </div>
-                <div className="col" style={{ margin: 'auto' }}>
+                <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
                   {album.artistName}
                 </div>
-                <div className="col" style={{ margin: 'auto' }}>
+                <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
                   {album.albumName}
                 </div>
-                <div className="col" style={{ margin: 'auto' }}>
+                <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
                   {album.tracksNumber}
                 </div>
-                <div className="col" style={{ margin: 'auto' }}>
+                <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
                   {album.releaseDate.substring(0, 4)}
                 </div>
-                <div className="col-2" style={{ margin: 'auto' }}>
+                <div className="col-2" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
                   {album.boughtMedium[0] && <div>{album.boughtMedium[0]}</div>}
                   {album.boughtMedium[1] && <div>{album.boughtMedium[1]}</div>}
                 </div>
                 <div className="col-2" style={{ margin: 'auto' }}>
-                  <button
-                    className="button"
+                  <DeleteIcon
+                    className='button'
                     onClick={() => {
                       setIsOpen(true);
                       setActiveAlbum(album);
-                    }}>
-                    Delete from bought
-                  </button>
+                    }} />
                 </div>
               </div>
             ))}
@@ -182,7 +182,7 @@ function Bought() {
         {searchResult.map((album) => (
           <div
             className="row"
-            style={{ padding: '1.85%', fontFamily: 'Sora', color: '#000000' }}
+            style={{ padding: '1.85%', fontFamily: 'Sora', color: '#acacac' }}
             key={album.albumId}>
             <div className="col-2">
               <img
@@ -192,31 +192,29 @@ function Bought() {
                 onClick={() => navigate(`/album/${album.albumId}`)}
               />
             </div>
-            <div className="col" style={{ margin: 'auto' }}>
+            <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
               {album.artistName}
             </div>
-            <div className="col" style={{ margin: 'auto' }}>
+            <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
               {album.albumName}
             </div>
-            <div className="col" style={{ margin: 'auto' }}>
+            <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
               {album.tracksNumber}
             </div>
-            <div className="col" style={{ margin: 'auto' }}>
+            <div className="col" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
               {album.releaseDate.substring(0, 4)}
             </div>
-            <div className="col-2" style={{ margin: 'auto' }}>
+            <div className="col-2" style={{ margin: 'auto' }} onClick={() => navigate(`/album/${album.albumId}`)}>
               {album.boughtMedium[0] && <div>{album.boughtMedium[0]}</div>}
               {album.boughtMedium[1] && <div>{album.boughtMedium[1]}</div>}
             </div>
             <div className="col-2" style={{ margin: 'auto' }}>
-              <button
-                className="button"
-                onClick={() => {
-                  setIsOpen(true);
-                  setActiveAlbum(album);
-                }}>
-                Delete from bought
-              </button>
+            <DeleteIcon
+                    className='button'
+                    onClick={() => {
+                      setIsOpen(true);
+                      setActiveAlbum(album);
+                    }} />
             </div>
           </div>
         ))}
