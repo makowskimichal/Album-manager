@@ -21,21 +21,29 @@ function PurchaseHistory() {
 
   return (
     <section>
-      <VerticalTimeline>
+      <VerticalTimeline lineColor='#fff'>
         {album.map((album) => (
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
-            contentStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
-            contentArrowStyle={{ borderRight: '7px solid  rgb(33, 150, 243)' }}
+            contentStyle={{ background: '#000', color: '#acacac' }}
+            contentArrowStyle={{ borderRight: "7px solid  #acacac" }}
             date={moment(album.albumBought).format('DD.MM.YYYY')}
-            iconStyle={{ background: 'rgb(33, 150, 243)', color: '#fff' }}
+            dateClassName="cardText"
+            iconStyle={{ background: '#000', color: '#fff' }}
             icon={<ShoppingCartIcon />}>
-            <div className="col-2" style={{ margin: 'auto' }}>
-              <img className="pr-10" src={album.imageUrl} alt="" />
+            <div className='row'>
+            <div className="col-4" style={{ margin: 'auto' }}>
+              <img className="pr-10" src={album.imageUrlBig} alt="" width={130} height={130}/>
             </div>
-            <h3 className="vertical-timeline-element-title">
-              {album.artistName} - {album.albumName}
+            <h3 className="vertical-timeline-element-title col cardText">
+              <div style={{ fontSize: '20px'}}>
+              {album.artistName}
+              </div>
+              <div>
+              {album.albumName}
+              </div>
             </h3>
+            </div>
           </VerticalTimelineElement>
         ))}
       </VerticalTimeline>

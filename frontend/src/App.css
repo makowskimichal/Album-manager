@@ -98,3 +98,9 @@
 .button:hover {
   color: #fff
 }
+
+.cardText {
+  color: #fff;
+  font-family: 'Sora';
+  text-align: left;
+}
