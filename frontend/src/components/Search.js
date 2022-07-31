@@ -192,8 +192,10 @@ function Search() {
         <div className="container-fluid m-3" style={{ fontFamily: 'Sora', color: '#acacac' }}>
         {userSearchResult.map((result) => (
           <div className="row" style={{ padding: '1.85%' }} key={result.username}>
+            <div className='col-1'>
+              <PersonIcon />
+            </div>
             <div className="col" style={{ margin: 'auto', cursor: 'pointer' }} onClick={() => navigate(`/user/${result.username}`)}>
-            <PersonIcon />
               {result.username}
             </div>
           </div>

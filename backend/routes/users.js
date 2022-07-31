@@ -34,7 +34,7 @@ router.post('/login', async (req, res) => {
 router.get('/search', async (req, res) => {
     let name = req.query.name
 
-    const users = await User.find({ $username: { $search: `${name}` } }).limit(5)
+    const users = await User.find({username: {$regex : `${name}`}})
     res.send(users)
 })
 

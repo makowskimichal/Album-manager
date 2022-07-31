@@ -5,6 +5,9 @@ import Modal from 'react-modal';
 import { useParams } from 'react-router-dom';
 import { useAlert } from 'react-alert';
 import { getUserFromLocalStorage } from '../components/auth/AuthService';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AlbumIcon from '@mui/icons-material/Album';
 
 const boughtOptions = [
   { value: 'cd', label: 'CD' },
@@ -106,40 +109,41 @@ function AlbumInfo() {
   return (
     <div className="container-fluid">
       <img src={album.imageUrlBig} alt="cover" width={200} height={200}></img>
-      <h1 style={{ fontFamily: 'Sora', color: '#acacac' }}>
-        {album.artistName} - {album.albumName}
+      <h1 className='albuminfoArtist'>
+        {album.artistName}
       </h1>
-      <h2 style={{ fontFamily: 'Sora', color: '#acacac' }}>
+      <h1 className='albuminfoAlbum'>
+        {album.albumName}
+      </h1>
+      <h2 className='albumInfoDateTracks'>
         {album.releaseDate}, {album.tracksNumber} tracks
       </h2>
-      <p style={{ fontFamily: 'Sora', color: '#acacac' }}>
+      <p className='albumInfoTracks'>
         {tracks.map((track, index) => (
           <div>
             {index + 1}. {track}
           </div>
         ))}
       </p>
-      <a style={{ fontFamily: 'Sora', color: '#acacac' }} href={album.link}>
+      <a className='spotifyLink' href={album.link}>
         Listen on Spotify
       </a>
-      <div>
-        <button className="button" onClick={() => favorites(album)}>
-          Add to favorites
-        </button>
-      </div>
-      <div>
-        <button
-          className="button"
-          onClick={() => {
-            setIsOpen(true);
-          }}>
-          Add to bought
-        </button>
-      </div>
-      <div>
-        <button className="button" onClick={() => wishlist(album)}>
-          Add to wishlist
-        </button>
+      <div className='row' style={{ paddingTop: '20px' }}>
+      <div className='col-3' />
+      <div className="col-2" style={{ margin: 'auto', alignContent: 'flex-end' }}>
+            <FavoriteIcon className='button' onClick={() => favorites(result)} />
+            </div>
+      <div className="col-2" style={{ margin: 'auto' }}>
+              <AlbumIcon className='button' 
+                onClick={() => {
+                  setIsOpen(true);
+                  setActiveAlbum(result);
+                }} />
+            </div>
+      <div className="col-2" style={{ margin: 'auto' }}>
+          <ShoppingCartIcon className='button' onClick={() => wishlist(album)}/>
+        </div>
+        <div className='col-3' />
       </div>
       <AlbumModal album={album} />
     </div>

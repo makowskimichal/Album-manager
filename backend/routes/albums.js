@@ -3,6 +3,7 @@ const router = express.Router()
 var _ = require('underscore')
 var SpotifyWebApi = require('spotify-web-api-node')
 const { Album } = require('../models/album')
+const { Stats } = require('../models/userStatistics')
 require('dotenv').config()
 
 const { SPOTIFY_ID, SPOTIFY_SECRET } = process.env
@@ -231,6 +232,7 @@ router.post('/bought', async (req, res) => {
             albumBought: Date.now(),
             username: req.body.user,
         })
+        await Stats.updateOne({username: req.body.user}, {username: req.body.user, albumsBought: await Album.countDocuments({username: req.body.user, isBought: true}) + 1}, {upsert: true})
         return res.send({
             message: `${album.albumName} has been added`,
             album: album.save(),
@@ -348,7 +350,7 @@ router.post('/wishlist', async (req, res) => {
             albumName: req.body.data.albumName,
             tracksNumber: req.body.data.tracksNumber,
             releaseDate: req.body.data.releaseDate,
-            isWishlist: false,
+            isWishlist: true,
             lastUpdated: Date.now(),
             username: req.body.user,
         })
@@ -471,7 +473,7 @@ router.get('/bought/search', async (req, res) => {
     let name = req.query.name
     const albums = await Album.find({
         isBought: true,
-        $or: [{ artistName: `${name}` }, { albumName: `${name}` }],
+        $or: [{ artistName: {$regex: `${name}`} }, { albumName: {$regex: `${name}`} }],
     })
     return res.send(albums)
 })
@@ -482,7 +484,7 @@ router.get('/favorites/search', async (req, res) => {
     let name = req.query.name
     const albums = await Album.find({
         isFavorite: true,
-        $or: [{ artistName: `${name}` }, { albumName: `${name}` }],
+        $or: [{ artistName: {$regex: `${name}`} }, { albumName: {$regex: `${name}`} }],
     })
     return res.send(albums)
 })
@@ -493,7 +495,7 @@ router.get('/wishlist/search', async (req, res) => {
     let name = req.query.name
     const albums = await Album.find({
         isWishlist: true,
-        $or: [{ artistName: `${name}` }, { albumName: `${name}` }],
+        $or: [{ artistName: {$regex: `${name}`} }, { albumName: {$regex: `${name}`} }],
     })
     return res.send(albums)
 })
@@ -506,6 +508,13 @@ router.get('/bought/history', async (req, res) => {
         username: req.query.user,
     }).sort({ albumBought: -1 })
     return res.send(albums)
+})
+
+router.get('/bought/count', async (req, res) => {
+    const count = await Stats.findOne({
+        username: req.query.user,
+    })
+    return res.send({count: count.albumsBought})
 })
 
 module.exports = router

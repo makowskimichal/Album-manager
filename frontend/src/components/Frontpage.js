@@ -9,6 +9,7 @@ function Frontpage() {
   const [favorite, setFavorite] = useState([]);
   const [bought, setBought] = useState([]);
   const [wishlist, setWishlist] = useState([]);
+  const [count, setCount] = useState(0)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +21,16 @@ function Frontpage() {
         setFavorite(res.data);
       });
   }, []);
+
+
+useEffect(() => {
+  const user = getUserFromLocalStorage();
+  axios
+    .get('http://localhost:4000/api/albums/bought/count', { params: { user: user.username } })
+    .then((res) => {
+      setCount(res.data);
+  });
+}, []);
 
   useEffect(() => {
     const user = getUserFromLocalStorage();
@@ -43,6 +54,12 @@ function Frontpage() {
 
   return (
     <section style={{ backgroundColor: '#121212' }}>
+      <h2 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
+        Your profile
+      </h2>
+      <h3 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
+        You have bought {count.count} unique albums! Keep going!
+      </h3>
       <h2 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
         Favorite albums
       </h2>

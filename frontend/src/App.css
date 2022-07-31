@@ -99,8 +99,124 @@
   color: #fff
 }
 
+.spotifyLink {
+  color: #acacac;
+  font-family: 'Sora';
+  cursor: pointer;
+}
+
+.spotifyLink:hover {
+  color: #2ea44f
+}
+
 .cardText {
   color: #fff;
   font-family: 'Sora';
   text-align: left;
+}
+
+.authName {
+  color: #acacac;
+  font-family: 'Sora';
+  font-size: 50px;
+  padding-top: 20px;
+}
+
+.authActionName {
+  color: #acacac;
+  font-family: 'Sora';
+  font-size: 30px;
+  padding-top: 50px;
+}
+
+.authInput {
+  color: #acacac;
+  font-family: 'Sora';
+  font-size: 15px;
+  padding: 1px;
+}
+
+.button-3 {
+  margin-top: 10px;
+  appearance: none;
+  background-color: #2ea44f;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Sora';
+  font-size: 14px;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.button-3:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.button-3:hover {
+  background-color: #2c974b;
+}
+
+.button-3:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+.button-3:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+.button-3:active {
+  background-color: #298e46;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+.input {
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.input:focus {
+  outline: none;
+}
+
+.albuminfoArtist {
+  color: #acacac;
+  font-family: 'Sora';
+  font-size: 30px;
+  padding-top: 10px;
+}
+
+.albuminfoAlbum {
+  color: #acacac;
+  font-family: 'Sora';
+  font-size: 40px;
+}
+
+.albumInfoDateTracks {
+  color: #acacac;
+  font-family: 'Sora';
+  font-size: 20px;
+}
+
+.albumInfoTracks {
+  color: #acacac;
+  font-family: 'Sora';
+  font-size: 21px;
 }

@@ -41,12 +41,14 @@ export class Authentication extends Component {
   render() {
     return (
       <div>
-        <h1>Melomaniac</h1>
-        <h2>Login</h2>
+        <h1 className='authName'>Melomaniac</h1>
+        <h2 className='authActionName'>Login</h2>
         <div className="map-list-container">
-          <label>
-            Username:{' '}
+        <div className='authInput'>
+            Username {''}
+          </div>
             <input
+              className='input'
               type="text"
               value={this.state.login.username}
               onChange={(event) =>
@@ -58,11 +60,12 @@ export class Authentication extends Component {
                 })
               }
             />
-          </label>
           <br />
-          <label>
-            Password:{' '}
+          <div className='authInput'>
+            Password {''}
+          </div>
             <input
+              className='input'
               type="password"
               value={this.state.login.password}
               onChange={(event) =>
@@ -74,17 +77,18 @@ export class Authentication extends Component {
                 })
               }
             />
-          </label>
           <br />
-          <button className="btn btn-primary" onClick={() => this.login()}>
+          <button className="button-3" onClick={() => this.login()}>
             Login
           </button>
         </div>
-        <h2>Register</h2>
+        <h2 className='authActionName'>Register</h2>
         <div className="map-list-container">
-          <label>
-            Username:{' '}
+        <div className='authInput'>
+            Username {''}
+          </div>
             <input
+              className='input'
               type="text"
               value={this.state.register.username}
               onChange={(event) =>
@@ -96,11 +100,12 @@ export class Authentication extends Component {
                 })
               }
             />
-          </label>
           <br />
-          <label>
-            Mail:{' '}
+          <div className='authInput'>
+            Mail {''}
+          </div>
             <input
+              className='input'
               type="text"
               value={this.state.register.mail}
               onChange={(event) =>
@@ -112,11 +117,12 @@ export class Authentication extends Component {
                 })
               }
             />
-          </label>
           <br />
-          <label>
-            Password:{' '}
+          <div className='authInput'>
+            Password {''}
+          </div>
             <input
+              className='input'
               type="password"
               value={this.state.register.password}
               onChange={(event) =>
@@ -128,10 +134,9 @@ export class Authentication extends Component {
                 })
               }
             />
-          </label>
           <br />
-          <button className="btn btn-primary" onClick={() => this.register()}>
-            Register
+          <button className="button-3" onClick={() => this.register()}>
+            Sign Up
           </button>
         </div>
       </div>

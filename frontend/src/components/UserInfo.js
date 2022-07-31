@@ -36,8 +36,11 @@ function Frontpage() {
   }, [username]);
 
   return (
-    <section>
-      <h2>Favorite albums</h2>
+    <section style={{ backgroundColor: '#121212' }}>
+      <h2 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
+        {username}'s profile
+      </h2>
+      <h2 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>Favorite albums</h2>
       <div>
         <Carousel cols={5} rows={1} gap={0} loop>
           {favorite.map((favorite) => (
@@ -46,9 +49,9 @@ function Frontpage() {
               <img
                 src={favorite.imageUrlBig}
                 alt="cover"
-                width={200}
-                height={200}
-                style={{ cursor: 'pointer' }}
+                width={250}
+                height={250}
+                className="box"
                 key={favorite.albumId}
                 onClick={() => navigate(`/album/${favorite.albumId}`)}
               />
@@ -56,7 +59,7 @@ function Frontpage() {
           ))}
         </Carousel>
       </div>
-      <h2>Bought albums</h2>
+      <h2 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>Bought albums</h2>
       <div>
         <Carousel cols={5} rows={1} gap={0} loop>
           {bought.map((bought) => (
@@ -65,9 +68,9 @@ function Frontpage() {
               <img
                 src={bought.imageUrlBig}
                 alt="cover"
-                width={200}
-                height={200}
-                style={{ cursor: 'pointer' }}
+                width={250}
+                height={250}
+                className="box"
                 key={bought.albumId}
                 onClick={() => navigate(`/album/${bought.albumId}`)}
               />
@@ -75,7 +78,7 @@ function Frontpage() {
           ))}
         </Carousel>
       </div>
-      <h2>Wishlist</h2>
+      <h2 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>Wishlist</h2>
       <div>
         <Carousel cols={5} rows={1} gap={0} loop>
           {wishlist.map((wishlist) => (
@@ -84,9 +87,9 @@ function Frontpage() {
               <img
                 src={wishlist.imageUrlBig}
                 alt="cover"
-                width={200}
-                height={200}
-                style={{ cursor: 'pointer' }}
+                width={250}
+                height={250}
+                className="box"
                 key={wishlist.albumId}
                 onClick={() => navigate(`/album/${wishlist.albumId}`)}
               />
