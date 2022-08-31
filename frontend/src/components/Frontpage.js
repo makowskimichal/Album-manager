@@ -14,7 +14,6 @@ function Frontpage() {
 
   useEffect(() => {
     const user = getUserFromLocalStorage();
-
     axios
       .get('http://localhost:4000/api/albums/favorites', { params: { user: user.username } })
       .then((res) => {
@@ -57,9 +56,15 @@ useEffect(() => {
       <h2 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
         Your profile
       </h2>
-      <h3 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
-        You have bought {count.count} unique albums! Keep going!
-      </h3>
+      <h4 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
+        You have bought {count.count} unique albums!
+      </h4>
+      <h4 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
+        You have listened to {count.countArtists} unique artists!
+      </h4>
+      <h4 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
+        Your albums accumulate to {count.summedTracks} songs! Keep going!
+      </h4>
       <h2 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
         Favorite albums
       </h2>

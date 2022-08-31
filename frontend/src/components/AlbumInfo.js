@@ -77,7 +77,7 @@ function AlbumInfo() {
       onRequestClose={() => setIsOpen(false)}
       style={customStyles}>
       <h1>
-        Do u want to add album {album.artistName} - {album.albumName} to bought?
+        Do you want to add album {album.artistName} - {album.albumName} to bought list?
       </h1>
       <Select
         value={selectedOptions}

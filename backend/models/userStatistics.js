@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose.Schema({
+const statsSchema = new mongoose.Schema({
     username: {
         type: String,
         minlength: 5,
@@ -10,8 +10,16 @@ const userSchema = new mongoose.Schema({
     albumsBought: {
         type: Number,
         required: true,
+    },
+    uniqueArtists: {
+        type: Number,
+        required: true,
+    },
+    listenedTracks: {
+        type: Number,
+        required: true,
     }
 })
 
-const Stats = mongoose.model('Stats', userSchema)
+const Stats = mongoose.model('Stats', statsSchema)
 exports.Stats = Stats

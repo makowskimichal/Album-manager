@@ -75,7 +75,7 @@ function Wishlist() {
   const AlbumModal = ({ album }) => (
     <Modal isOpen={modalIsOpen} onRequestClose={() => setIsOpen(false)} style={customStyles}>
       <h1>
-        Do u want to delete album {album.artistName} - {album.albumName} from wishlist?
+        Do you want to delete album {album.artistName} - {album.albumName} from wishlist?
       </h1>
       <button
         onClick={() => {

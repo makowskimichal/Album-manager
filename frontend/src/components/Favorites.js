@@ -75,7 +75,7 @@ function Favorites() {
   const AlbumModal = ({ album }) => (
     <Modal isOpen={modalIsOpen} onRequestClose={() => setIsOpen(false)} style={customStyles}>
       <h1>
-        Do u want to delete album {album.artistName} - {album.albumName} from favorites?
+        Do you want to delete album {album.artistName} - {album.albumName} from favorites?
       </h1>
       <button
         onClick={() => {

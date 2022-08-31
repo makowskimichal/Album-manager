@@ -9,6 +9,7 @@ function Frontpage() {
   const [bought, setBought] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const navigate = useNavigate();
+  const [count, setCount] = useState(0)
   const { username } = useParams();
 
   useEffect(() => {
@@ -18,6 +19,14 @@ function Frontpage() {
         setFavorite(res.data);
       });
   }, [username]);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:4000/api/albums/bought/count', { params: { user: username } })
+      .then((res) => {
+        setCount(res.data);
+    });
+  }, []);
 
   useEffect(() => {
     axios
@@ -40,6 +49,15 @@ function Frontpage() {
       <h2 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
         {username}'s profile
       </h2>
+      <h4 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
+        {username} has bought {count.count} unique albums!
+      </h4>
+      <h4 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
+        {username} has listened to {count.countArtists} unique artists!
+      </h4>
+      <h4 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>
+        {username}'s' albums accumulate to {count.summedTracks} songs! Keep going!
+      </h4>
       <h2 style={{ fontFamily: 'Sora', color: '#acacac', paddingBottom: '10px' }}>Favorite albums</h2>
       <div>
         <Carousel cols={5} rows={1} gap={0} loop>

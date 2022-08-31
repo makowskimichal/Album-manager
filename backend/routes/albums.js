@@ -514,7 +514,13 @@ router.get('/bought/count', async (req, res) => {
     const count = await Stats.findOne({
         username: req.query.user,
     })
-    return res.send({count: count.albumsBought})
+
+    const countArtists = (await Album.find({username: req.query.user}).distinct('artistName')).length;
+    const countTracks = await Album.find({username: req.query.user}).select('tracksNumber -_id');
+    const summedTracks = countTracks.reduce((accumulator, object) => {
+        return accumulator + object.tracksNumber;
+    }, 0)
+    return res.send({count: count.albumsBought, countArtists, summedTracks})
 })
 
 module.exports = router
