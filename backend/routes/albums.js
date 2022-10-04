@@ -268,6 +268,7 @@ router.post('/bought', async (req, res) => {
                 { imageUrl: req.body.data.imageUrl, username: req.body.user },
                 {
                     isBought: true,
+                    isWishlist: false,
                     boughtMedium: req.body.data.boughtMedium,
                     lastUpdated: Date.now(),
                 }
